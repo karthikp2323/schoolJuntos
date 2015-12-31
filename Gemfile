@@ -40,9 +40,9 @@ gem 'bootstrap_form'
 #gem 'autoprefixer-rails'
 
 #gem 'kaminari'
-#gem 'devise', '~> 3.5', '>= 3.5.2'
+gem 'devise', '~> 3.5', '>= 3.5.2'
 
-gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
+#gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 
 
 # See https://github.com/rails/execjs#readme for more supported runtimes

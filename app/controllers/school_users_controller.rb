@@ -1,8 +1,8 @@
 class SchoolUsersController < ApplicationController
   before_action :set_school_user, only: [:show, :edit, :update, :destroy]
   after_action :set_access_control_headers
-  ssl_required :teacherHomeView
-  ssl_allowed :all
+  #ssl_required :teacherHomeView
+  #ssl_allowed :all
  
 
   # GET /school_users
@@ -19,6 +19,7 @@ class SchoolUsersController < ApplicationController
     
   end
 
+  #get classroomlist
   def teacherHomeView
     @class_details = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
     
