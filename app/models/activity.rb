@@ -1,10 +1,12 @@
 class Activity < ActiveRecord::Base
+  require "paperclip"
   belongs_to :classroom
   belongs_to :school_users
 
-  has_attached_file :image, :styles => {:small => "150x150>"},
-  					:url  => "/assets/products/:id/:style/:basename.:extension",
-                  	:path => ":rails_root/public/assets/products/:id/:style/:basename.:extension"
+
+  has_attached_file :image, :styles => {:small => "150x150>"}
+  					#:url  => "/assets/products/:id/:style/:basename.:extension",
+             #     	:path => ":rails_root/public/assets/products/:id/:style/:basename.:extension"
 
 
   #validates_attachment_presence :image

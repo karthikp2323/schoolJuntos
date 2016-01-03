@@ -29,7 +29,7 @@ end
 
     #check for authorized_user and store the values into session
     if authorized_user
-      
+      roles = Role.find(authorized_user.role_id)
       session[:role_id] = authorized_user.role_id
       session[:user_id] = authorized_user.id
       session[:school_id] = authorized_user.school_id
