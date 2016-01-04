@@ -62,11 +62,11 @@
     <%= f.check_box :allow_comment %>
  
   
-    <% if session[:role_id] == 1 %>
-    <%= f.text_field :classroom_id, {:value => 0, :hidden => true} %>
-    <% else %>
+    
+   
+   
     <%= f.text_field :classroom_id, {:value => @classroom_id, :hidden => true} %>
-    <% end %>
+   
 
     <%= f.text_field :school_user_id, {:value => session[:user_id], :hidden => true}%>
  

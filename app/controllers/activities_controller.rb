@@ -16,10 +16,10 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   def new
     
-    if session[:role_id] == 1
-
+    if session[:role_type] == "Admin"
+      
       @activity = Activity.new #For creating new activity
-    
+      @classroom_id = 1
       @activities = Activity.order("created_at DESC").page(params[:page]).per_page(5)
       else 
       #@class_details = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
@@ -37,6 +37,7 @@ class ActivitiesController < ApplicationController
   # POST /activities
   # POST /activities.json
   def create
+
     @activity = Activity.new(activity_params)
 
     if @activity.save

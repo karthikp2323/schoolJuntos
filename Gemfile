@@ -46,7 +46,7 @@ gem 'devise', '~> 3.5', '>= 3.5.2'
 
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+ gem 'therubyracer', platforms: :ruby
 
 #gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 #gem 'jquery-ui-rails'

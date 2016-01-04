@@ -16,7 +16,7 @@ session[:user_id] = nil
 redirect_to root_path
 end
 
-  def attempt_login
+  def check_login
 
     #check whether user has provided username and password
     if params[:username].present? && params[:password].present?
@@ -30,12 +30,13 @@ end
     #check for authorized_user and store the values into session
     if authorized_user
       roles = Role.find(authorized_user.role_id)
+      session[:role_type] = roles.role_type
       session[:role_id] = authorized_user.role_id
       session[:user_id] = authorized_user.id
       session[:school_id] = authorized_user.school_id
       session[:username] = authorized_user.first_name + " " +authorized_user.last_name
 
-        if session[:role_id] == 2
+        if session[:role_type] == "Teacher"
           redirect_to(:controller => 'school_users' ,:action => 'teacherHomeView')
           
           else

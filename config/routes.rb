@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   
   get 'home/logout', to: 'home#logout'
 
-  post 'attempt_login' => 'home#attempt_login'
+  post 'check_login' => 'home#check_login'
 
   #devise_for :users
   resources :parents
