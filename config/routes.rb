@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  get 'api/school_users/teacherHomeView', to: 'api/school_users#teacherHomeView'
+  get 'api/school_users/getClassList', to: 'api/school_users#getClassList'
+
+  #post 'api/activities/create', to: 'api/activities#create'
 
   namespace :api do
     resources :school_users

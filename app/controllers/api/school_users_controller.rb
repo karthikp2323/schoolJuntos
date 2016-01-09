@@ -7,7 +7,7 @@ def index
 	end
 
 
-def teacherHomeView
+def getClassList
     render json: Classroom.where("school_user_id = ? AND school_id =?", params[:user_id], params[:school_id])
     
   end

@@ -17,7 +17,7 @@ class ActivitiesController < ApplicationController
   def new
     
     if session[:role_type] == "Admin"
-      
+
       @activity = Activity.new #For creating new activity
       @classroom_id = 1
       @activities = Activity.order("created_at DESC").page(params[:page]).per_page(5)
@@ -39,7 +39,7 @@ class ActivitiesController < ApplicationController
   def create
 
     @activity = Activity.new(activity_params)
-
+    debugger
     if @activity.save
       @activities = Array.wrap(@activity) #converting to array
 
