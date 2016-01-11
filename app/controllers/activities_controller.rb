@@ -39,7 +39,7 @@ class ActivitiesController < ApplicationController
   def create
 
     @activity = Activity.new(activity_params)
-    debugger
+    
     if @activity.save
       @activities = Array.wrap(@activity) #converting to array
 

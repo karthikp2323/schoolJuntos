@@ -22,7 +22,7 @@ def getActivities
   
 
   def create
-    debugger
+    
  result = { status: "failed" }
     begin
       params[:image] = parse_image_data(params[:image]) if params[:image]
@@ -31,6 +31,8 @@ def getActivities
       @activity.image = params[:image]
       @activity.title = params[:title]
       @activity.message = params[:message]
+      @activity.classroom_id = params[:classroom_id]
+      @activity.school_user_id = params[:school_user_id]
       if @activity.save
         result[:status] = "success"
       end
@@ -49,7 +51,7 @@ end
 
 
 def parse_image_data(image_data)
-  debugger
+  
     #imageDetails = image_data.split(" \" ")
     @tempfile = Tempfile.new('RackMultipart')
     @tempfile.binmode
@@ -58,7 +60,7 @@ def parse_image_data(image_data)
 
     uploaded_file = ActionDispatch::Http::UploadedFile.new(
       tempfile: @tempfile,
-      filename: "download.jpeg"
+      filename: params[:fileName]
     )
 
    uploaded_file.content_type = "image/jpeg"
