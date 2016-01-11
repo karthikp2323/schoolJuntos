@@ -22,7 +22,7 @@ def getActivities
   
 
   def create
-    
+    debugger
  result = { status: "failed" }
     begin
       params[:image] = parse_image_data(params[:image]) if params[:image]
@@ -50,18 +50,18 @@ end
 
 def parse_image_data(image_data)
   debugger
-    imageDetails = image_data.split("\"")
+    #imageDetails = image_data.split(" \" ")
     @tempfile = Tempfile.new('RackMultipart')
     @tempfile.binmode
-    @tempfile.write Base64.decode64(imageDetails[7])
+    @tempfile.write Base64.decode64(image_data)
     @tempfile.rewind
 
     uploaded_file = ActionDispatch::Http::UploadedFile.new(
       tempfile: @tempfile,
-      filename: imageDetails[3]
+      filename: "download.jpeg"
     )
 
-   uploaded_file.content_type = imageDetails[11]
+   uploaded_file.content_type = "image/jpeg"
     uploaded_file
   end
 
@@ -76,7 +76,7 @@ def parse_image_data(image_data)
 private
 
   def activity_params
-      params.permit(:title)
+       params.require(:activity).permit(:title, :message, :activity_type, :allow_comment, :classroom_id, :school_user_id, :image)
     end
 
   def set_access_control_headers

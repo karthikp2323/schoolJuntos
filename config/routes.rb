@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'api/activities/getActivities', to: 'api/activities#getActivities'
 
+  post 'api/activities/create', to:  'api/activities#create'
+
   namespace :api do
     resources :school_users
   end
