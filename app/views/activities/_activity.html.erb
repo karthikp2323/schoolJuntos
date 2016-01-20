@@ -1,3 +1,9 @@
+<% if @activities.empty? %>
+
+	<label>No activities to show</label>
+
+<% else %>
+
 <% @activities.each do |activity| %>
 <div class="col-lg-10 col-sm-10 col-xs-10">
 	
@@ -60,5 +66,7 @@
 	</div>
 
 </div>
+
+<% end %>
 
 <% end %>

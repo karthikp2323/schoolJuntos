@@ -13,6 +13,8 @@ def logout
 session[:school_id] = nil
 session[:parent_id] = nil
 session[:user_id] = nil
+session[:role_type] = nil
+session[:parent_id] = nil
 redirect_to root_path
 end
 
@@ -37,8 +39,8 @@ end
       session[:username] = authorized_user.first_name + " " +authorized_user.last_name
 
         if session[:role_type] == "Teacher"
-          redirect_to(:controller => 'school_users' ,:action => 'teacherHomeView')
-          
+          redirect_to(:controller => 'school_users' ,:action => 'schoolUserHomeView')
+            
           else
           flash[:notice] = "You are now logged in."
           redirect_to new_activity_path

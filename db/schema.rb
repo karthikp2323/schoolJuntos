@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214004419) do
+ActiveRecord::Schema.define(version: 20160115174506) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -67,6 +67,31 @@ ActiveRecord::Schema.define(version: 20151214004419) do
   add_index "comments", ["parent_id"], name: "index_comments_on_parent_id", using: :btree
   add_index "comments", ["school_user_id"], name: "index_comments_on_school_user_id", using: :btree
 
+  create_table "event_statuses", force: :cascade do |t|
+    t.integer  "event_id",   limit: 4
+    t.integer  "parent_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "event_statuses", ["event_id"], name: "index_event_statuses_on_event_id", using: :btree
+  add_index "event_statuses", ["parent_id"], name: "index_event_statuses_on_parent_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "event_title",       limit: 255
+    t.string   "event_description", limit: 255
+    t.date     "event_date"
+    t.string   "event_time",        limit: 255
+    t.string   "event_location",    limit: 255
+    t.integer  "school_user_id",    limit: 4
+    t.integer  "classroom_id",      limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "events", ["classroom_id"], name: "index_events_on_classroom_id", using: :btree
+  add_index "events", ["school_user_id"], name: "index_events_on_school_user_id", using: :btree
+
   create_table "messages", force: :cascade do |t|
     t.text     "message_text",   limit: 65535
     t.integer  "parent_id",      limit: 4
@@ -92,7 +117,7 @@ ActiveRecord::Schema.define(version: 20151214004419) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "roles_type", limit: 25
+    t.string   "role_type",  limit: 25
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -177,6 +202,10 @@ ActiveRecord::Schema.define(version: 20151214004419) do
   add_foreign_key "comments", "activities"
   add_foreign_key "comments", "parents"
   add_foreign_key "comments", "school_users"
+  add_foreign_key "event_statuses", "events"
+  add_foreign_key "event_statuses", "parents"
+  add_foreign_key "events", "classrooms"
+  add_foreign_key "events", "school_users"
   add_foreign_key "messages", "parents"
   add_foreign_key "messages", "school_users"
   add_foreign_key "school_users", "roles"

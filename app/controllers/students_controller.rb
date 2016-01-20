@@ -40,7 +40,7 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
 
-   
+   @classroomId = params[:classroomId]
   end
 
   # POST /students

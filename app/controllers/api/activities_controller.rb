@@ -17,11 +17,11 @@ def getActivities
 
     end
 
-  end
+end
 
   
 
-  def create
+def create
     
  result = { status: "failed" }
     begin
@@ -77,7 +77,7 @@ def parse_image_data(image_data)
 
 private
 
-  def activity_params
+  def event_params
        params.require(:activity).permit(:title, :message, :activity_type, :allow_comment, :classroom_id, :school_user_id, :image)
     end
 

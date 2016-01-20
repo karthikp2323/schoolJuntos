@@ -2,26 +2,32 @@ class ParentsController < ApplicationController
   before_action :set_parent, only: [:show, :edit, :update, :destroy]
 
   
-  def login
+  def parentlogin
     render
   end
 
-  def attempt_login
+  def check_parentlogin
+    
+    #check whether user has provided username and password
     if params[:username].present? && params[:password].present?
-      found_user = Parent.where(:login_id => params[:username] ).first
-      if found_user
-        
-      # TODO: mark user as logged in
-      session[:parent_id] = found_user.id
+      found_user = Parent.where("login_id = ? AND password = ?", params[:username], params[:password]).first
+          if found_user
+            session[:parent_id] = found_user.id 
+            session[:role_type] = "Parent"
+            
+            
+            redirect_to school_users_schoolUserHomeView_path
+          end
       
-      redirect_to(:controller => 'students' ,:action => 'studentSchoolActivities', :method => :post)
-    else
-      flash[:notice] = "Invalid username/password combination."
-      redirect_to(:action => 'login')
+
     end
-  end
+
+  def parentHomeView
+    
   end
 
+
+  end
   # GET /parents
   # GET /parents.json
   def index

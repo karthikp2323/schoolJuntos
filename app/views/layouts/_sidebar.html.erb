@@ -10,7 +10,7 @@
                 <!-- Sidebar Menu -->
                 <ul class="nav sidebar-menu">
                 
-                <% if session[:role_id] == 1%>   
+                <% if session[:role_type] == "Admin"%>   
                     <li >
                         <a href="/activities/new">
                             <i class="menu-icon glyphicon glyphicon-home"></i>
@@ -39,16 +39,31 @@
                             <i class="menu-icon glyphicon glyphicon-th-list"></i>
                             <span class="menu-text"> Class List </span></a>
                     </li>
-                    <% elsif session[:role_id] == 2
+                    <% elsif session[:role_type] == "Teacher"
                         %>
                     
                     
-                    <li >
+                    <li class="dropdown">
 
-                        <a href="/school_users/teacherHomeView">
+                        <a href="/school_users/schoolUserHomeView">
                             <i class="menu-icon glyphicon glyphicon-pencil"></i>
                             <span class="menu-text"> Home </span></a>
                     </li>
+
+
+                    <% elsif session[:role_type] == "Parent"
+                        %>
+                    
+                    
+                    <li>
+
+                        <a href="/school_users/schoolUserHomeView">
+                            <i class="menu-icon glyphicon glyphicon-pencil"></i>
+                            <span class="menu-text"> Home </span></a>
+                    </li>
+
+
+                    
                    
                     
                         <%end%>

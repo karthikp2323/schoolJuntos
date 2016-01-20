@@ -1,9 +1,6 @@
 class SchoolUsersController < ApplicationController
   before_action :set_school_user, only: [:show, :edit, :update, :destroy]
   after_action :set_access_control_headers
-  #ssl_required :teacherHomeView
-  #ssl_allowed :all
- 
 
   # GET /school_users
   # GET /school_users.json
@@ -19,11 +16,16 @@ class SchoolUsersController < ApplicationController
     
   end
 
-  #get classroomlist
-  def teacherHomeView
-    @class_details = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
+  #get classroomlist and childrenlist for parents
+  def schoolUserHomeView
     
+    if session[:parent_id]
+      @parent_kids = Student.where("parent_id = ?", session[:parent_id])
 
+    else
+      @class_details = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
+    end    
+    
   end
   
   def listTeachers

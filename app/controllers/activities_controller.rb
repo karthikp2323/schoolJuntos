@@ -21,6 +21,13 @@ class ActivitiesController < ApplicationController
       @activity = Activity.new #For creating new activity
       @classroom_id = 1
       @activities = Activity.order("created_at DESC").page(params[:page]).per_page(5)
+      elsif session[:role_type] == "Parent"
+       
+      @activity = Activity.new  
+      @activities = Activity.where(classroom_id: ClassRegistration.select("classroom_id").where(student_id: params[:student_id])).order("created_at DESC").page(params[:page]).per_page(5)
+     
+      
+      
       else 
       #@class_details = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
       @activity = Activity.new #For creating new activity
@@ -89,7 +96,7 @@ class ActivitiesController < ApplicationController
     end
 
     def check_session
-      if session[:user_id]
+      if session[:user_id] || session[:parent_id]
         
         else
           redirect_to "/home/login"

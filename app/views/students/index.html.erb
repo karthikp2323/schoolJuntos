@@ -49,7 +49,7 @@
        
         
         <!-- <td><%= link_to 'Show', student, class: 'btn btn-info btn-xs edit' %></td> -->
-        <td><%= link_to 'Show / Edit', edit_student_path(student), class: 'btn btn-info btn-xs edit' %>
+        <td><%= link_to 'Show / Edit', {:controller => "students", :action => "edit", :studentId => student.id, :classroomId => @classroomId, :id => student.id}, class: 'btn btn-info btn-xs edit' %>
             <%= link_to 'Destroy', {:controller => "students", :action => "destroy", :studentId => student.id, :classroomId => @classroomId}, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-info btn-xs edit' %>
         </td>
       </tr>

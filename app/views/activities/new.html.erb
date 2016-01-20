@@ -1,8 +1,10 @@
 <div class="col-lg-12 col-sm-12 col-sm-12">
 
   <div class ="row">
+    <% if session[:role_type] == "Teacher" || session[:role_type] == "Admin" %>
   <%= render 'form' %>
-<% if session[:role_id] == 2%>
+<% end %>
+<% if session[:role_type] == "Teacher" %>
     <div class="col-lg-6 col-sm-6 col-sm-6">
 
       <div class="widget-header bordered-bottom bordered-blue">
@@ -17,7 +19,7 @@
                   <div class="form-group">
                     <span class="input-icon icon-right">
                        
-                       <%= link_to 'Add Parent', {:controller => "parents", :action => "new", :classroomId => @classroom_id}, class: 'btn btn-edit btn-xs edit' %></td> 
+                       <%= link_to 'Add Students', {:controller => "parents", :action => "new", :classroomId => @classroom_id}, class: 'btn btn-edit btn-xs edit' %></td> 
                     </span>
                   </div>
                 </div>
@@ -37,6 +39,7 @@
     </div> 
          
     </div>
+
     <% end %>
 
   </div>

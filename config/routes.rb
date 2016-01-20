@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
 
+  
   get 'api/school_users/getClassList', to: 'api/school_users#getClassList'
 
 
   get 'api/activities/getActivities', to: 'api/activities#getActivities'
-
   post 'api/activities/create', to:  'api/activities#create'
+
+  get 'api/events/getEvent', to: 'api/events#getEvent'
+  get 'api/events/getEventForClass', to: 'api/events#getEventForClass'
+
+  namespace :api do
+    resources :events
+  end
 
   namespace :api do
     resources :school_users
@@ -19,11 +26,17 @@ Rails.application.routes.draw do
 
 
 
-  get 'school_users/teacherHomeView', to: 'school_users#teacherHomeView'
+  get 'school_users/schoolUserHomeView', to: 'school_users#schoolUserHomeView'
   
   get 'home/logout', to: 'home#logout'
 
   post 'check_login' => 'home#check_login'
+
+  post '/check_parentlogin' => 'parents#check_parentlogin'
+
+  get 'parents', to: 'parents#parentlogin'
+
+  get 'parents/parentHomeView', to: 'parents#parentHomeView'
 
   #devise_for :users
   resources :parents
@@ -32,6 +45,7 @@ Rails.application.routes.draw do
   resources :students
   resources :school_users
   resources :schools
+  resources :events
   #resources :home
 
   

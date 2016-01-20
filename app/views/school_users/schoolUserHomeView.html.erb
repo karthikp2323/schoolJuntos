@@ -1,0 +1,69 @@
+
+<div class="col-lg-6 col-sm-6 col-xs-8">
+    
+
+    <% if(session[:role_type] == "Teacher") %>
+    <div class="widget-header bordered-bottom bordered-blue">
+        <span class="widget-caption">Your Classes </span>
+    </div>
+    <div class="widget-body ">
+        <% @class_details.each do |classdetails| %>
+          <div>
+             <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <span class="input-icon icon-right">
+                        
+                        <a href='/activities/new?class_id=<%=classdetails.id%> '>
+                        <i class="menu-icon glyphicon glyphicon-eye-open"></i>
+                        <span class="menu-text"> <%= classdetails.class_name%> </span></a>
+                     
+                        
+                        
+                    </span>
+                  </div>
+                </div>
+             </div>
+          </div>
+                
+        <% end %>
+    </div>
+    <% else %>
+<div class="widget-header bordered-bottom bordered-blue">
+        <span class="widget-caption">My Kids </span>
+    </div>
+    <div class="widget-body">
+
+      <% if(@parent_kids) %>
+        <% @parent_kids.each do |kids| %>
+          <div>
+             <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    
+                    
+                    <span class="input-icon icon-right">
+                        
+                        <a href='/activities/new?student_id=<%=kids.id%> '>
+                        <i class="menu-icon glyphicon glyphicon-eye-open"></i>
+                        <span class="menu-text"> <%= kids.first_name %> <%= kids.last_name %> </span></a>
+                     
+                        
+                        
+                    </span>
+                    
+                       
+                    
+
+                  </div>
+                </div>
+             </div>
+          </div>
+                
+        <% end %>
+        <% end %>
+      
+    </div>
+
+    <% end %> 
+</div>
