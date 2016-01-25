@@ -68,10 +68,11 @@ ActiveRecord::Schema.define(version: 20160115174506) do
   add_index "comments", ["school_user_id"], name: "index_comments_on_school_user_id", using: :btree
 
   create_table "event_statuses", force: :cascade do |t|
-    t.integer  "event_id",   limit: 4
-    t.integer  "parent_id",  limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "parent_id_declined", limit: 4
+    t.integer  "event_id",           limit: 4
+    t.integer  "parent_id",          limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "event_statuses", ["event_id"], name: "index_event_statuses_on_event_id", using: :btree

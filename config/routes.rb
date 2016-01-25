@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'api/events/getEvent', to: 'api/events#getEvent'
   get 'api/events/getEventForClass', to: 'api/events#getEventForClass'
+  get 'api/events/getEventDetail', to: 'api/events#getEventDetail'
+  get 'api/events/eventUserDetailList', to: 'api/events#eventUserDetailList'
 
   namespace :api do
     resources :events
@@ -31,11 +33,9 @@ Rails.application.routes.draw do
   get 'home/logout', to: 'home#logout'
 
   post 'check_login' => 'home#check_login'
-
   post '/check_parentlogin' => 'parents#check_parentlogin'
 
   get 'parents', to: 'parents#parentlogin'
-
   get 'parents/parentHomeView', to: 'parents#parentHomeView'
 
   #devise_for :users
