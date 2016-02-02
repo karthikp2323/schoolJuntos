@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   get 'api/events/getEventForClass', to: 'api/events#getEventForClass'
   get 'api/events/getEventDetail', to: 'api/events#getEventDetail'
   get 'api/events/eventUserDetailList', to: 'api/events#eventUserDetailList'
+  get 'api/events/getEventForParent', to: 'api/events#getEventForParent'
+  post 'api/events/updateEventStatus', to: 'api/events#updateEventStatus'
+
+  post 'api/parents/check_login', to: 'api/parents#check_login'
+  get 'api/parents/getChildList', to: 'api/parents#getChildList'
 
   namespace :api do
     resources :events

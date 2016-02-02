@@ -1,6 +1,6 @@
 class Api::EventsController < ApplicationController
 after_action :set_access_control_headers
-skip_before_action :verify_authenticity_token, only: [:create]
+skip_before_action :verify_authenticity_token, only: [:create, :updateEventStatus]
 
 
 #GET Events
@@ -13,9 +13,29 @@ end
 
 #GET Events for a particular class
 def getEventForClass
-	
-	@events = Event.where("classroom_id = ?", params[:classroom_id])
+       
+  @events = Event.where("classroom_id = ?", params[:classroom_id])
 	render json: @events
+
+end
+
+def getEventForParent
+
+begin
+  
+  sql = "SELECT DISTINCT e.id, e.event_title, e.event_description, e.event_date, e.event_time, e.event_location, e.school_user_id, e.classroom_id 
+        from events e 
+        left join event_statuses s
+        on e.id = s.event_id
+        where e.classroom_id in (select classroom_id from class_registrations where student_id in" + params[:student_Ids] + ")"    
+  
+  records_array = ActiveRecord::Base.connection.exec_query(sql)
+  @events = records_array
+  render json: @events
+rescue Exception => e
+  render json: e.message
+end
+  
 
 end
 
@@ -25,9 +45,43 @@ def getEventDetail
   #that allows the definition of arbitrary attributes with their accompanying values. 
   #This is accomplished by using Ruby’s metaprogramming to define methods on the class itself.
   begin
+    if params[:role_type] == "Parent"
+
     @eventObj = OpenStruct.new
     @event = Event.find(params[:eventId])
     
+    @eventObj.id = @event.id
+    @eventObj.event_title = @event.event_title
+    @eventObj.event_description = @event.event_description
+    @eventObj.event_date = @event.event_date
+    @eventObj.event_time = @event.event_time
+    @eventObj.event_location = @event.event_location
+    @eventObj.school_user_id = @event.school_user_id
+    @eventObj.classroom_id = @event.classroom_id
+    @eventObj.event_status_id = :null
+    #checks and gets the event accepted status of a parent
+    eventStatusCheck = EventStatus.where("event_id= ? AND parent_id = ? ", params[:eventId], params[:parent_id] ) 
+      if eventStatusCheck.length > 0
+
+        @eventObj.eventAddedToCalendar = true;
+        
+        @eventObj.parent_id = eventStatusCheck[0].parent_id
+        @eventObj.event_status_id = eventStatusCheck[0].id
+      else
+        #checks and gets the declined event status of a parent
+        eventStatusCheck = EventStatus.where("event_id= ? AND parent_id_declined = ? ", params[:eventId], params[:parent_id]) 
+          if eventStatusCheck.length > 0
+            @eventObj.eventAddedToCalendar = false;
+            @eventObj.parent_id_declined = eventStatusCheck[0].parent_id_declined
+            @eventObj.event_status_id = eventStatusCheck[0].id
+          end 
+      end
+    
+    else
+    @eventObj = OpenStruct.new
+    @event = Event.find(params[:eventId])
+    
+    @eventObj.id = @event.id
     @eventObj.event_title = @event.event_title
     @eventObj.event_description = @event.event_description
     @eventObj.event_date = @event.event_date
@@ -58,7 +112,7 @@ def getEventDetail
     @eventObj.declinedCount = records_array.rows[0][0]
     #EventStatus.select(:parent_id).where("event_id =?", params[:eventId] ).count
     #@acceptedCount = ClassRegistration.joins(student: :parent).where("classroom_id =?", 2 )
-    
+    end
     render json: @eventObj
 
   rescue Exception => e
@@ -132,14 +186,48 @@ def create
       
 end
 
-def getEvents
+def updateEventStatus
+
+  begin
+
+    updateAction = params[:actionPerformed]
+  case updateAction
+    when "declineJoinedEvent"  
+      sql = "update event_statuses 
+             set parent_id_declined="  + params[:parent_id] + ", parent_id = null 
+             where event_statuses.id = " + params[:event_status_id] + "&& event_id=" + params[:event_id];
+         
+      ActiveRecord::Base.connection.execute(sql)
+
+    when "joinDeclinedEvent"
+      sql = "update event_statuses 
+             set parent_id_declined=null, parent_id = " + params[:parent_id] + "
+             where event_statuses.id = " + params[:event_status_id] + " && event_id=" + params[:event_id];
+         
+      ActiveRecord::Base.connection.execute(sql)
+      
+    when "decline"
+      @event_statuses = EventStatus.new(event_id: params[:event_id], parent_id_declined: params[:parent_id] )
+      @event_statuses.save
+
+    when "join"
+      @event_statuses = EventStatus.new(event_id: params[:event_id], parent_id: params[:parent_id] )
+      @event_statuses.save
+
+        
+    
+  end
+     render json: true
+  rescue Exception => e
+     render json: e.message
+  end
 	
 end
 
 private
 	
-  def event_params
-      params.require(:event).permit(:event_title, :event_description, :event_time, :event_location, :school_users_id, :classroom_id)
+  def event_status_params
+      params.require(:event_status).permit(:event_id, :parent_id, :parent_id_declined)
     end		
   
 

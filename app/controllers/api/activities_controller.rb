@@ -6,15 +6,28 @@ skip_before_action :verify_authenticity_token, only: [:create]
 #Gets the list of activities
 def getActivities
     
-    if params[:role_id] == "1"
+    begin
+    
+      if params[:role_type] == "Admin"
+        @activitiesForAdmin = Activity.order("created_at DESC")
+        render json: @activitiesForAdmin
 
-     render json: Activity.order("created_at DESC")
-      else 
+      elsif params[:role_type] == "Parent"
         
-      render json: Activity.where("classroom_id = ? AND school_user_id = ?", params[:class_id], params[:user_id]).order("created_at DESC").to_json(:only => [:id, :title, :message, :created_at], :methods => [:image_url])
-      #Activity.where("classroom_id = ? AND school_user_id = ?", params[:class_id], params[:user_id]).order("created_at DESC")
-      #@model.to_json(:only => [:id,:name,:homephone,:cellphone], :methods => [:avatar_url])
+        @activitiesForParent = @activities = Activity.where(classroom_id: ClassRegistration.select("classroom_id").where(student_id: params[:student_id])).order("created_at DESC")
+        render json: @activitiesForParent
 
+
+      else 
+        @activitiesForTeacher = Activity.where("classroom_id = ? AND school_user_id = ?", params[:class_id], params[:user_id]).order("created_at DESC").to_json(:only => [:id, :title, :message, :created_at], :methods => [:image_url])  
+        render json: @activitiesForTeacher
+        #Activity.where("classroom_id = ? AND school_user_id = ?", params[:class_id], params[:user_id]).order("created_at DESC")
+        #@model.to_json(:only => [:id,:name,:homephone,:cellphone], :methods => [:avatar_url])
+
+      end
+    
+    rescue Exception => e
+        render json: e.message
     end
 
 end
