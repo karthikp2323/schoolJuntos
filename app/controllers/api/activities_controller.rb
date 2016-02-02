@@ -9,7 +9,7 @@ def getActivities
     begin
     
       if params[:role_type] == "Admin"
-        @activitiesForAdmin = Activity.order("created_at DESC")
+        @activitiesForAdmin = Activity..where(school_id: params[:school_id]).order("created_at DESC")
         render json: @activitiesForAdmin
 
       elsif params[:role_type] == "Parent"
@@ -46,6 +46,7 @@ def create
       @activity.message = params[:message]
       @activity.classroom_id = params[:classroom_id]
       @activity.school_user_id = params[:school_user_id]
+      @activity.school_id = params[:school_id]
       if @activity.save
         result[:status] = "success"
       end

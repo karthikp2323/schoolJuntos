@@ -20,7 +20,7 @@ class ActivitiesController < ApplicationController
 
       @activity = Activity.new #For creating new activity
       @classroom_id = 1
-      @activities = Activity.order("created_at DESC").page(params[:page]).per_page(5)
+      @activities = Activity.where(school_id: session[:school_id]).order("created_at DESC").page(params[:page]).per_page(5)
       elsif session[:role_type] == "Parent"
        
       @activity = Activity.new  
@@ -92,7 +92,7 @@ class ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:title, :message, :activity_type, :allow_comment, :classroom_id, :school_user_id, :image)
+      params.require(:activity).permit(:title, :message, :activity_type, :allow_comment, :classroom_id, :school_id, :school_user_id, :image)
     end
 
     def check_session

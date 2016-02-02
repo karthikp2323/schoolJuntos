@@ -69,6 +69,8 @@
    
 
     <%= f.text_field :school_user_id, {:value => session[:user_id], :hidden => true}%>
+
+    <%= f.text_field :school_id, {:value => session[:school_id], :hidden => true}%>
  
   <button type="submit" class="btn btn-blue">Post</button>
 <% end %>
