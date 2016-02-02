@@ -4,8 +4,9 @@ class ClassroomsController < ApplicationController
   # GET /classrooms
   # GET /classrooms.json
   def index
-    @classrooms = Classroom.joins(:school_user).page(params[:page]).per_page(6)
-
+    # displays the class list when admin clicks on class list from side bar to view classes.
+    @classrooms = Classroom.where(school_id: session[:school_id]).joins(:school_user).page(params[:page]).per_page(6)
+    
   end
 
   def indexForTeachers

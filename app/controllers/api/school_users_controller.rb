@@ -8,6 +8,7 @@ def index
 
 
 def getClassList
+    #renders the class list for teacher
     render json: Classroom.where("school_user_id = ? AND school_id =?", params[:user_id], params[:school_id])
     
   end
