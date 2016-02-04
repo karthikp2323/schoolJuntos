@@ -17,7 +17,7 @@ class ActivitiesController < ApplicationController
   def new
     
     if session[:role_type] == "Admin"
-
+      
       @activity = Activity.new #For creating new activity
       @classroom_id = 1
       @activities = Activity.where(school_id: session[:school_id]).order("created_at DESC").page(params[:page]).per_page(5)

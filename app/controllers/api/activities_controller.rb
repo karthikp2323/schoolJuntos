@@ -9,18 +9,18 @@ def getActivities
     begin
     
       if params[:role_type] == "Admin"
-        @activitiesForAdmin = Activity.where(school_id: params[:school_id]).order("created_at DESC")
+        @activitiesForAdmin = Activity.where(school_id: params[:school_id]).order("created_at DESC").page(params[:page]).per_page(7)
         render json: @activitiesForAdmin
 
       elsif params[:role_type] == "Parent"
         
-        @activitiesForParent = @activities = Activity.where(classroom_id: ClassRegistration.select("classroom_id").where(student_id: params[:student_id])).order("created_at DESC")
-        render json: @activitiesForParent
+        @activitiesForParent = @activities = Activity.where(classroom_id: ClassRegistration.select("classroom_id").where(student_id: params[:student_id])).order("created_at DESC").page(params[:page]).per_page(7)
+        render json: @activitiesForParent.to_json(:only => [:id, :title, :message, :created_at], :methods => [:image_url])  
 
 
       else 
-        @activitiesForTeacher = Activity.where("classroom_id = ? AND school_user_id = ?", params[:class_id], params[:user_id]).order("created_at DESC").to_json(:only => [:id, :title, :message, :created_at], :methods => [:image_url])  
-        render json: @activitiesForTeacher
+        @activitiesForTeacher = Activity.where("classroom_id = ? AND school_user_id = ?", params[:class_id], params[:user_id]).order("created_at DESC").page(params[:page]).per_page(7)  
+        render json: @activitiesForTeacher.to_json(:only => [:id, :title, :message, :created_at], :methods => [:image_url])  
         #Activity.where("classroom_id = ? AND school_user_id = ?", params[:class_id], params[:user_id]).order("created_at DESC")
         #@model.to_json(:only => [:id,:name,:homephone,:cellphone], :methods => [:avatar_url])
 

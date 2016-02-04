@@ -82,10 +82,10 @@
     
   
     
-    <%= f.text_field :role_id, :value => 2, :hidden => true %>
+    <%= f.text_field :role_id, {:value => 2, :hidden => true} %>
   
     
-    <%= f.text_field :school_id, :value => 2, :hidden => true %>
+    <%= f.text_field :school_id, {:value => session[:school_id], :hidden => true} %>
  
   
     <button type="submit" class="btn btn-blue">Submit</button>
