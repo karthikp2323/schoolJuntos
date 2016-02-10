@@ -8,20 +8,24 @@ def attempt_login
       if found_user 
         #decrypt password (bcrypt gem is used)
         authorized_user = found_user.authenticate(params[:password])
+          if authorized_user
+          render json: authorized_user 
+          else
+          render json: "Invalid Credentials"
+          end  
+
+        else
+        render json: "Invalid Credentials"
+
       end# end of if found_user 
-    end #end of if params
-
-    if authorized_user
-      
-      session[:role_id] = authorized_user.role_id
-      session[:user_id] = authorized_user.id
-      session[:school_id] = authorized_user.school_id
-      session[:username] = authorized_user.first_name + " " +authorized_user.last_name
-  end #end of if authorized_user
-
-render json: authorized_user
-
+        
+    else
+    render json: "Provide username and password"
+    
+  end #end of if params
+  
 end #end of def attempt_login
+
 
 private
 
