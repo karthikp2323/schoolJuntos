@@ -38,10 +38,13 @@ def create
     
  result = { status: "failed" }
     begin
-      params[:image] = parse_image_data(params[:image]) if params[:image]
-
+      
       @activity = Activity.new
-      @activity.image = params[:image]
+      if !params[:image] == " "
+        params[:image] = parse_image_data(params[:image]) if params[:image]
+        @activity.image = params[:image]
+      end
+      
       @activity.title = params[:title]
       @activity.message = params[:message]
       @activity.classroom_id = params[:classroom_id]

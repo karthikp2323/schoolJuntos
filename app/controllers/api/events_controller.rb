@@ -111,8 +111,8 @@ def getEventDetail
     @eventObj.acceptedCount = records_array.rows[0][1]
     @eventObj.declinedCount = records_array.rows[0][0]
     #EventStatus.select(:parent_id).where("event_id =?", params[:eventId] ).count
-    debugger
-    @acceptedCount = ClassRegistration.joins(student: [parent: :comment]).includes(student: [parent: :comment]).where("classroom_id =?", 2 )
+    
+    #@acceptedCount = ClassRegistration.joins(student: [parent: :comment]).includes(student: [parent: :comment]).where("classroom_id =?", 2 )
 
     end
     render json: @eventObj
