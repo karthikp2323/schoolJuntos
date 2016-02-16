@@ -5,9 +5,24 @@ skip_before_action :verify_authenticity_token, only: [:create, :updateEventStatu
 
 #GET Events
 def getEvent
-	
-  @events = Event.all
-	render json: @events
+
+begin
+  
+  user_role = params[:user_role]
+  
+  case user_role
+  when "Admin"
+    @events = Event.all  
+  when "Teacher"
+    @events = Event.where("school_user_id = ?", params[:user_id])  
+  end
+  
+  render json: @events
+
+rescue Exception => e
+  render json: e.message 
+end
+  
 
 end
 
