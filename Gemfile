@@ -18,6 +18,7 @@ gem 'remotipart', '~> 1.2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -29,7 +30,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-
+gem 'font-awesome-sass'
 gem 'bootstrap-sass', '~> 3.3.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -59,6 +60,10 @@ gem 'paperclip'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+
+#gem for evevt calendar
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

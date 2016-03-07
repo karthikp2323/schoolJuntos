@@ -1,24 +1,18 @@
-<% if @activities.empty? %>
-
-	<label>No activities to show</label>
-
-<% else %>
 
 <% @activities.each do |activity| %>
-<div class="col-lg-10 col-sm-10 col-xs-10">
+<div class="col-lg-10 col-sm-10 col-xs-10 activities-width">
 	
-	<div class="widget-header bordered-left bordered-red ">
-	     <span class="widget-caption"> <strong><%= activity.title %> </strong></span>
+	<div class="widget-header  ">
+	     <span class="widget-caption"> <strong><%= activity.title %>  </strong></span>
 	</div>
 
 
 	<div class="widget">
-	  <div class="widget-body bordered-bottom bordered-gold ">
+	  <div class="widget-body">
 		
 		<div>
-		
-			<div class="row">
-		        
+			<% if activity.image.url.include? "assets/products" %>
+			<div class="row"> 
 		        <div class="col-md-6">
 		           <div class="form-group">
 		              <span class="input-icon icon-right">
@@ -26,47 +20,20 @@
 		                     
 		               </span>
 		            </div>
-		        </div>
-
-		        <div class="col-md-6">
-		           <div class="form-group">
-		              <span class="input-icon icon-right">
-		                 <%= activity.message %>  
-		                     
-		               </span>
-		            </div>
-		        </div>
-		   
-		             
-		                  
-		    </div>
-
-		    <div class="row">
-		        <div class="col-xs-2">
-		           <div class="form-group">
-		              <span class="input-icon icon-right">
-		                 
-		                     
-		               </span>
-		            </div>
-		        </div>
-
-		        
-		   <div class="col-xs-10">
-		             <span class="pull-right text-muted">
-		                  Posted <%= time_ago_in_words(activity.created_at) %> ago
-		                     
-		             </span>
-		           </div>  
-		                  
-		    </div>
-
+		        </div>       
+		      </div>
+		      <% end %>
 		</div>
+			<p>
+			    <%= activity.message %>
+	        </p>
 	  </div>
+
+	  
 	</div>
 
 </div>
 
 <% end %>
 
-<% end %>
+

@@ -10,16 +10,31 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require fullcalendar
+ *= require jquery-ui/dialog
  *= require_self
  *= require_tree .
 
  */
 
 
+.mainpagebackground{
 
-#imageActivity{
-    width:150px;
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+    
+    background: url('/assets/main_background_01.jpg') center center fixed;
+    background-size: cover;
+    padding: 20px 0;
+    overflow: hidden;
+    min-height: 700px;
+
+    
 }
+
 
 #teacherClass{
     left:-1px;
@@ -69,6 +84,15 @@ font-weight: normal;
     
 }
 
+.widget-header > .caption-align-center{
+    
+    font-family: 'Raleway', sans-serif;
+    margin-right: 58px;
+    font-size: 1.3em;
+    font-weight: 300;
+}
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
 

@@ -35,13 +35,19 @@ Rails.application.routes.draw do
 
   get 'school_users/schoolUserHomeView', to: 'school_users#schoolUserHomeView'
   
+  get 'home/terms', to: 'home#terms'
+  get 'home/login', to: 'home#login'
   get 'home/logout', to: 'home#logout'
+  get 'home/check_login_id', to: 'home#check_login_id'
 
   post 'check_login' => 'home#check_login'
   post '/check_parentlogin' => 'parents#check_parentlogin'
 
   get 'parents', to: 'parents#parentlogin'
   get 'parents/parentHomeView', to: 'parents#parentHomeView'
+
+
+  get 'events/eventUserDetailList', to: 'events#eventUserDetailList'
 
   #devise_for :users
   resources :parents
@@ -63,7 +69,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'home#login'
+   root 'home#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

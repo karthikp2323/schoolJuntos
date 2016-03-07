@@ -1,35 +1,30 @@
-
-<div class="col-lg-6 col-sm-6 col-xs-8">
+<div class="page-breadcrumbs">
+  <h> <a href="/school_users/schoolUserHomeView"> Home </a>   </h>
+</div>
+<div class="col-lg-6 col-sm-6 col-xs-8 list-box-home">
     
-
+<% params[:classes] = @class_details %>
     <% if(session[:role_type] == "Teacher") %>
-    <div class="widget-header bordered-bottom bordered-blue">
-        <span class="widget-caption">Your Classes </span>
+    <div class="widget-header  widget-for-user">
+        <div class="profile__image">
+          <a href="#"> <%= session[:initials] %> </a>
+        </div>
+        
     </div>
-    <div class="widget-body ">
-        <% @class_details.each do |classdetails| %>
-          <div>
-             <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <span class="input-icon icon-right">
-                        
-                        <a href='/activities/new?class_id=<%=classdetails.id%> '>
-                        <i class="menu-icon glyphicon glyphicon-eye-open"></i>
-                        <span class="menu-text"> <%= classdetails.class_name%> </span></a>
-                     
-                        
-                        
-                    </span>
-                  </div>
-                </div>
-             </div>
-          </div>
-                
-        <% end %>
+    <div class="widget-body widget-classes-body">
+        <div class="row row-specs-header"><span class="caption-align-center">My Classes </span> </div>
+              <% @class_details.each do |classdetails| %>
+                   <div class="row">
+                      <div class="col-sm-6 col-user-specs">
+             
+                              <a href='/activities/new?class_id=<%=classdetails.id%>&classname=<%= classdetails.class_name%> '>     
+                              <span class="menu-text"> <%= classdetails.class_name%> </span></a>
+                      </div>
+                   </div>   
+              <% end %>
     </div>
     <% else %>
-<div class="widget-header bordered-bottom bordered-blue">
+    <div class="widget-header widget-for-user">
         <span class="widget-caption">My Kids </span>
     </div>
     <div class="widget-body">
@@ -41,21 +36,13 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     
-                    
-                    <span class="input-icon icon-right">
-                        
+                     <span class="input-icon icon-right">
                         <a href='/activities/new?student_id=<%=kids.id%> '>
                         <i class="menu-icon glyphicon glyphicon-eye-open"></i>
                         <span class="menu-text"> <%= kids.first_name %> <%= kids.last_name %> </span></a>
-                     
-                        
-                        
-                    </span>
+                      </span>
                     
-                       
-                    
-
-                  </div>
+                    </div>
                 </div>
              </div>
           </div>

@@ -16,6 +16,7 @@ class SchoolsController < ApplicationController
 
   # GET /schools/new
   def new
+
     @school = School.new
     @school.school_users.build 
   end
@@ -27,12 +28,39 @@ class SchoolsController < ApplicationController
   # POST /schools
   # POST /schools.json
   def create
+    
     @school = School.new(school_params)
+    @school_user = SchoolUser.new(school_params[:school_users_attributes]["0"])
+
 
     respond_to do |format|
       if @school.save
-        format.html { redirect_to @school, notice: 'School was successfully created.' }
+
+              found_user = SchoolUser.where(:login_id => school_params[:school_users_attributes]["0"]["login_id"]).first
+              if found_user 
+                
+                #decrypt password (bcrypt gem is used)
+                authorized_user = found_user.authenticate(school_params[:school_users_attributes]["0"]["password"])
+              end # EOF if found_user 
+
+              if authorized_user
+                
+                session[:role_type] = "Admin"
+                session[:role_id] = authorized_user.role_id
+                session[:user_id] = authorized_user.id
+                session[:school_id] = authorized_user.school_id
+                session[:username] = authorized_user.first_name + " " +authorized_user.last_name
+
+              end  # EOF if authorized_user
+    
+        format.html { redirect_to new_activity_path}
         format.json { render :show, status: :created, location: @school }
+
+              begin
+                UserMailer.registration_confirmation(@school_user).deliver
+              rescue Exception => e
+                error = e.message
+              end
       else
         format.html { render :new }
         format.json { render json: @school.errors, status: :unprocessable_entity }

@@ -57,13 +57,22 @@ class SchoolUsersController < ApplicationController
   # POST /school_users
   # POST /school_users.json
   def create
+    randNum = Random.new 
 
     @school_user = SchoolUser.new(school_user_params)
-
     
+    @school_user.login_id = school_user_params[:first_name] + school_user_params[:last_name] + randNum.rand(999).to_s
+    @school_user.password = school_user_params[:first_name][0..3] + school_user_params[:last_name] + randNum.rand(999).to_s
+        
     #respond_to do |format|
       if @school_user.save
-        UserMailer.registration_confirmation(@school_user).deliver
+
+        begin
+          UserMailer.registration_confirmation(@school_user).deliver
+        rescue Exception => e
+          error = e.message
+        end
+        
         redirect_to :controller => 'school_users', :action => 'index'
         #format.html { redirect_to :action => index, notice: 'School user was successfully created.' }
         #format.json { render :show, status: :created, location: @school_user }

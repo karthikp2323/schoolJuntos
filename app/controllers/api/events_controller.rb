@@ -78,58 +78,57 @@ def getEventDetail
     eventStatusCheck = EventStatus.where("event_id= ? AND parent_id = ? ", params[:eventId], params[:parent_id] ) 
       if eventStatusCheck.length > 0
 
-        @eventObj.eventAddedToCalendar = true;
-        
-        @eventObj.parent_id = eventStatusCheck[0].parent_id
-        @eventObj.event_status_id = eventStatusCheck[0].id
-      else
-        #checks and gets the declined event status of a parent
+          @eventObj.eventAddedToCalendar = true;
+          @eventObj.parent_id = eventStatusCheck[0].parent_id
+          @eventObj.event_status_id = eventStatusCheck[0].id
+        else
+          #checks and gets the declined event status of a parent
         eventStatusCheck = EventStatus.where("event_id= ? AND parent_id_declined = ? ", params[:eventId], params[:parent_id]) 
-          if eventStatusCheck.length > 0
-            @eventObj.eventAddedToCalendar = false;
-            @eventObj.parent_id_declined = eventStatusCheck[0].parent_id_declined
-            @eventObj.event_status_id = eventStatusCheck[0].id
-          end 
-      end
+        if eventStatusCheck.length > 0
+           @eventObj.eventAddedToCalendar = false;
+           @eventObj.parent_id_declined = eventStatusCheck[0].parent_id_declined
+           @eventObj.event_status_id = eventStatusCheck[0].id
+        end 
+      end  # End logic for params[:role_type] == "Parent"
     
-    else
-    @eventObj = OpenStruct.new
-    @event = Event.find(params[:eventId])
-    
-    @eventObj.id = @event.id
-    @eventObj.event_title = @event.event_title
-    @eventObj.event_description = @event.event_description
-    @eventObj.event_date = @event.event_date
-    @eventObj.event_time = @event.event_time
-    @eventObj.event_location = @event.event_location
-    @eventObj.school_user_id = @event.school_user_id
-    @eventObj.classroom_id = @event.classroom_id
+    else #Event detail for Teacher
+      @eventObj = OpenStruct.new
+      @event = Event.find(params[:eventId])
+      
+      @eventObj.id = @event.id
+      @eventObj.event_title = @event.event_title
+      @eventObj.event_description = @event.event_description
+      @eventObj.event_date = @event.event_date
+      @eventObj.event_time = @event.event_time
+      @eventObj.event_location = @event.event_location
+      @eventObj.school_user_id = @event.school_user_id
+      @eventObj.classroom_id = @event.classroom_id
     
     #This query is performed in order to eliminate 
     #duplicate parent id that can be caused due to twin children 
      
-    sql = "SELECT  COUNT(DISTINCT p.id)
-           FROM class_registrations c
-           JOIN students s
-           ON s.id = c.student_id
-           JOIN parents p
-           ON p.id = s.parent_id
-           WHERE c.classroom_id = " + @event.classroom_id.to_s
-            
-    records_array = ActiveRecord::Base.connection.exec_query(sql)
-    @eventObj.invitationCount = records_array.rows 
+      sql = "SELECT  COUNT(DISTINCT p.id)
+             FROM class_registrations c
+             JOIN students s
+             ON s.id = c.student_id
+             JOIN parents p
+             ON p.id = s.parent_id
+             WHERE c.classroom_id = " + @event.classroom_id.to_s
+              
+      records_array = ActiveRecord::Base.connection.exec_query(sql)
+      @eventObj.invitationCount = records_array.rows 
 
-    sql = "SELECT COUNT(parent_id_declined) as declineCount, 
-           COUNT(parent_id) as acceptedCount 
-           FROM `event_statuses` WHERE event_id = " + params[:eventId].to_s
-    records_array = ActiveRecord::Base.connection.exec_query(sql)
-    @eventObj.acceptedCount = records_array.rows[0][1]
-    @eventObj.declinedCount = records_array.rows[0][0]
+      sql = "SELECT COUNT(parent_id_declined) as declineCount, 
+             COUNT(parent_id) as acceptedCount 
+             FROM `event_statuses` WHERE event_id = " + params[:eventId].to_s
+      records_array = ActiveRecord::Base.connection.exec_query(sql)
+      @eventObj.acceptedCount = records_array.rows[0][1]
+      @eventObj.declinedCount = records_array.rows[0][0]
     #EventStatus.select(:parent_id).where("event_id =?", params[:eventId] ).count
     
     #@acceptedCount = ClassRegistration.joins(student: [parent: :comment]).includes(student: [parent: :comment]).where("classroom_id =?", 2 )
 
-    end
+    end 
     render json: @eventObj
 
   rescue Exception => e
@@ -164,7 +163,7 @@ def eventUserDetailList
                   FROM parents
                   JOIN event_statuses
                   ON parents.id = event_statuses.parent_id_declined
-                  WHERE event_statuses.id = " + params[:eventId].to_s
+                  WHERE event_statuses.event_id = " + params[:eventId].to_s
            records_array = ActiveRecord::Base.connection.exec_query(sql)
            @userList = records_array
       end
@@ -174,7 +173,7 @@ def eventUserDetailList
       render json: e.message
     end
     
-end
+end # EOF method eventUserDetailList
 
 def create
 	result = { status: "failed" }

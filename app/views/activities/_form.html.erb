@@ -1,22 +1,22 @@
-<div class="col-lg-6 col-sm-6 col-xs-8">
-                <div class="widget">
-                    <div class="widget-header bordered-bottom bordered-blue">
-                        <span class="widget-caption">Post Activity </span>
-                    </div>
-                    <div class="widget-body ">
-                        <div>
-<%= form_for(@activity, remote: true) do  |f| %> <!-- authenticity_token: true -->
-  <% if @activity.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
-
-      <ul>
-      <% @activity.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="col-lg-6 col-sm-6 col-xs-8" style="
+    margin-left: -12px;">
+  <div class="widget activity-post">  <!-- / Widget Post activity box-->
+      <div class="widget-header bordered-bottom bordered-blue">
+          <span class="widget-caption">Post Activity </span>
+      </div>
+    <div class="widget-body"> <!-- Widget-Body Post activity box-->
+                        
+          <%= form_for(@activity, remote: true) do  |f| %> <!-- authenticity_token: true -->
+              <% if @activity.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+                  <ul>
+                    <% @activity.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+              <% end %>
+                  </ul>
+                </div>
+          <% end %>
 
         <div class="row">
                 <div class="col-sm-6">
@@ -41,40 +41,22 @@
                 </div>
         </div>
 
-  <div class="row">
-                        
-                <div class="col-sm-6">
+        <div class="row">
+              <div class="col-sm-6">
                   <div class="form-group">
-                    
-                   
-                     <%= f.file_field :image %>
-                     
+                       <%= f.file_field :image %>
                   </div>
-                </div>
+              </div>
         </div> 
- 
- 
-  
-    
-  
-    <%= f.check_box :activity_type %>
-  
-    <%= f.check_box :allow_comment %>
- 
-  
-    
-   
-   
-    <%= f.text_field :classroom_id, {:value => @classroom_id, :hidden => true} %>
-   
 
-    <%= f.text_field :school_user_id, {:value => session[:user_id], :hidden => true}%>
-
-    <%= f.text_field :school_id, {:value => session[:school_id], :hidden => true}%>
- 
-  <button type="submit" class="btn btn-blue">Post</button>
-<% end %>
-  </div>  
+        <%= f.check_box :activity_type %>
+        <%= f.check_box :allow_comment %>
+        <%= f.text_field :classroom_id, {:value => @classroom_id, :hidden => true} %>
+        <%= f.text_field :school_user_id, {:value => session[:user_id], :hidden => true}%>
+        <%= f.text_field :school_id, {:value => session[:school_id], :hidden => true}%>
+     
+        <button type="submit" class="btn btn-blue">Post</button>
+    <% end %>
+   </div>  <!-- / Widget-Body Post activity box-->
+  </div>  <!-- / Widget Post activity box-->
 </div>
-  </div>
-    </div>

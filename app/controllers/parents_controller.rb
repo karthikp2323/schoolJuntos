@@ -20,7 +20,7 @@ class ParentsController < ApplicationController
           end
       
 
-    end
+    end #EOF def check_parentlogin
 
   def parentHomeView
     
@@ -41,12 +41,15 @@ class ParentsController < ApplicationController
 
   # GET /parents/new
   def new
+
+    @url_back = request.fullpath
     @parent = Parent.new
     @parent.students.build
 
     @classregistration = Classroom.new
 
     @classroomId = params[:classroomId]
+    @classname = params[:classname]
     #@student.class_registration.build
 
 
@@ -66,6 +69,7 @@ class ParentsController < ApplicationController
 
     respond_to do |format|
       if @parent.save
+        
 
         studentId = Student.select("id").where("parent_id = "+ @parent.id.to_s)
 
@@ -73,6 +77,13 @@ class ParentsController < ApplicationController
         regObj.student_id = studentId[0].id
         regObj.classroom_id = params[:classroomId]
         regObj.save
+
+          if regObj.save
+            @parentObj = Parent.new
+            
+            UserMailer.registration_confirmation(@school_user).deliver
+
+          end
 
         format.html { redirect_to controller: 'students', action: 'index', classroomId: params[:classroomId] , notice: 'Parent was successfully created.' }
         format.json { render :show, status: :created, location: @parent }

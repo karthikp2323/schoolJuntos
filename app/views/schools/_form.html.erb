@@ -1,33 +1,39 @@
+
+
     <%= form_for(@school) do |f| %>
-    <div class="col-lg-12 col-sm-12 col-xs-12 animated fadeInDown">
-      <div class="widget-header bg-blue">
-        <span class="widget-caption">Registration Form</span></div>
+    <div class="col-lg-12 col-sm-12 col-xs-12 animated fadeInDown form-registration">
+      
     <div class="widget flat radius-bordered fadeInDown">
+
         <div class="widget-body">
-<div id="registration-form">
+                <div id="registration-form">
                                   <form role="form">
-                                        <div class="form-title">
+                                        <div class="form-title title-registration">
+                                           <h2> Create your school account </h2>
+                                            <hr class="wide">  
                                             School Information
                                         </div>
-                                        <div class="row">
-                                        <div class="col-sm-6">
+                                         
+                                        <div class="row row-registration">
+                                        <div class="col-sm-8">
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
                                                         <%= f.text_field :school_name, class: 'form-control', placeholder: 'School Name' %>
-                                                        <i class="glyphicon glyphicon-earphone"></i>
+                                                        
                                                     </span>
                                                 </div>
                                             </div>
+                                            
+                                          </div>
+                                          <div class="row row-registration">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
                                                         <%= f.text_field :email_id, class: 'form-control', placeholder: 'Email Id for contact' %>
-                                                        <i class="glyphicon glyphicon-earphone"></i>
+                                                        <i class="glyphicon glyphicon-envelope"></i>
                                                     </span>
                                                 </div>
                                             </div>
-                                          </div>
-                                          <div class="row">
                                         <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
@@ -36,6 +42,7 @@
                                                     </span>
                                                 </div>
                                             </div>
+
                                            <!-- <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
@@ -119,9 +126,18 @@
                                           </div> -->
                                         <%= f.fields_for :school_users do |o| %>
                                         <div class="form-title">
-                                            Log In Information
+                                           Log In Information  
+
+                                           <img id="check-login-id" class="loading-gif" src="/assets/ripple.gif"> <label id="check-login-id-label" style="margin-top: 5px;" id="check-login-id"> Checking for Login Id availability. </label>
+
+                                           <label id="login-available" style="margin-top: 5px; color:blue" id="check-login-id"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Login Id available. </label>
+
+                                           <label id="login-unavailable" style="margin-top: 5px; color:red" id="check-login-id"> <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> This login Id has been taken. </label>
+
+
                                         </div>
-                                        <div class="row">
+                                        
+                                        <div class="row row-registration">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
@@ -139,7 +155,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row row-registration">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
@@ -157,8 +173,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr class="wide">
-                                        <div class="row">
+                                       
+                                        <div class="row row-registration">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
@@ -179,20 +195,64 @@
                                         </div>
                                         <%= o.text_field :role_id, value: 1, :hidden => true %>
                                         <% end %>
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input class="colored-blue" type="checkbox">
-                                                    <span class="text">Auto Sign In After Registration</span>
-                                                </label>
+                                        
+
+
+                                       <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                 <%= submit_tag("Register", {:class => "btn btn-primary btn-register", :id => "btnRegister"}) %>
                                             </div>
                                         </div>
-
-
-                                        <button type="submit" class="btn btn-blue">Register</button>
+                                    </div>
                                     </form>
                                 </div>
                                      </div>
         </div>
        </div> 
        <% end %>  
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('#btnRegister').prop("disabled",true);
+        $('#check-login-id').hide();
+        $('#check-login-id-label').hide();
+        $('#login-available').hide();
+        $('#login-unavailable').hide();
+
+
+    });
+
+    $('#school_school_users_attributes_0_login_id').change(function() {
+             
+             $('#check-login-id').show();
+             $('#check-login-id-label').show();
+
+             $.ajax({
+              method: "GET",
+              url: "/home/check_login_id",
+              data: { login_id: $('#school_school_users_attributes_0_login_id').val() }
+            })
+              .done(function(data) {
+                    if (data == 1) { //login id notavailable
+                        $('#check-login-id').hide();
+                        $('#check-login-id-label').hide();
+                        $('#login-available').hide();
+                        $('#login-unavailable').show();
+                        $('#btnRegister').prop("disabled",true);
+                    }
+                    else{ //login id  available
+                        $('#check-login-id').hide();
+                        $('#check-login-id-label').hide();
+                        $('#login-unavailable').hide();
+                        $('#login-available').show();
+                        $('#btnRegister').prop("disabled",false);
+                    };
+                    
+
+                });
+
+        });
+</script>

@@ -1,34 +1,91 @@
-<p id="notice"><%= notice %></p>
+<div class="page-breadcrumbs">
+  <h> <a href="/home"> Home </a> / <a href="/events"> Events </a> / <%= @eventObj.event_title %> </h>
+</div>
+<div class="eventdetail" style="background-color: rgb(238, 238, 238); height: 700px; margin: 0px -22px -27px -20px;">
+<div class="row">
+  
+  <div class="event-detail-header">
+     <p class="event-title">
+      <%= @eventObj.event_title %>
+     </p>                
+  </div>
 
-<p>
-  <strong>Event title:</strong>
-  <%= @event.event_title %>
-</p>
+  <div class="panel-body event-desc">
+       <p ><%= @eventObj.event_description %></p>  
+      
+       <p > <div class="btn-group align-btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" onclick="getInvitedList('Invited', <%= @eventObj.classroom_id %>, <%= @eventObj.id %>)">Invited <%= @eventObj.invitationCount[0][0] %></button>
+            
+            <button type="button" class="btn btn-default" onclick="getInvitedList('Accepted', <%= @eventObj.classroom_id %>, <%= @eventObj.id %>)">Accepted <%= @eventObj.acceptedCount %> </button>
+            
+            <button type="button" class="btn btn-default" onclick="getInvitedList('Rejected', <%= @eventObj.classroom_id %>, <%= @eventObj.id %>)">Rejected <%= @eventObj.declinedCount %> </button>
+          
+          </div>
+       </p>
 
-<p>
-  <strong>Event description:</strong>
-  <%= @event.event_description %>
-</p>
+  </div>
+<br>
+<div class="panel-body event-desc">
+       <p > <i class="glyphicon glyphicon-calendar"></i>  <%= @eventObj.event_date %> <%= @eventObj.event_time %></p>  
+       <hr class="hr-event-detail"></hr>
+       <p > <i class="glyphicon glyphicon-map-marker"></i> <%= @eventObj.event_location %> </p>
 
-<p>
-  <strong>Event time:</strong>
-  <%= @event.event_time %>
-</p>
+  </div>
+<div class="col-sm-10">
 
-<p>
-  <strong>Event location:</strong>
-  <%= @event.event_location %>
-</p>
 
-<p>
-  <strong>School users:</strong>
-  <%= @event.school_users %>
-</p>
 
-<p>
-  <strong>Classroom:</strong>
-  <%= @event.classroom %>
-</p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+</div>
+</div><!-- / div row-->
+
+</div>
+
+<script>
+  
+  $(document).ready(function(){
+
+    $("#dialog-message").hide();
+
+  });
+
+  function getInvitedList(selectedOption, classroom_id, event_id) {
+    
+    $('#tableParticipantList').html("");
+
+    $.ajax({
+      method: "GET",
+      url: "/events/eventUserDetailList",
+      data: { selectedOption: selectedOption, classroom_id: classroom_id, eventId: event_id }
+    })
+      .done(function(data) {
+        $.each( data, function(index) {
+          $('#tableParticipantList').append('<tr><td >'+ data[index].dad_fname + ' ' + data[index].dad_lname + '</td></tr>');
+          
+        });
+
+
+          $( "#dialog-message" ).dialog({
+            maxHeight: 400,
+            minHeight: 350,
+            title: selectedOption,
+            position: { my: "center", at: "center", of: ".page-body" },
+            modal: true,
+            buttons: {
+              Ok: function() {
+                $( this ).dialog( "close" );
+              }
+            }
+          });
+        
+      });
+
+
+
+  };
+  </script>
+
+
+<div id="dialog-message" >
+  <%= render 'participantlist' %>
+</div>

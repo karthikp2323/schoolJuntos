@@ -48,7 +48,7 @@ def create
       @activity.title = params[:title]
       @activity.message = params[:message]
       @activity.classroom_id = params[:classroom_id]
-      @activity.school_user_id = 4
+      @activity.school_user_id = params[:school_user_id]
       @activity.school_id = params[:school_id]
       if @activity.save
         result[:status] = "success"

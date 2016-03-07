@@ -1,3 +1,554 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+.page-body{
+	background: #FFFFFF
+}
+
+.page-breadcrumbs{
+    margin-top: 50px;
+    margin-left: -20px;
+
+    background-color: #FFF;
+    position: fixed;
+    width: 1500px;
+}
+
+.page-breadcrumbs h{
+    margin-left: 15px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+.page-breadcrumbs a:hover{
+    background-color: transparent;
+    color: black;
+}
+
+//Landing page settings
+
+.custom-nav-bar{
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #FFFAFA;    
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.login-li{
+	border-radius: 25px;
+	border: 2px solid #fff;
+}
+
+header{
+	margin-top: -10%;
+	margin-left: -10%;
+	position: relative;
+	width: 200%; 
+    height: 200%;
+	
+	text-align: center;
+	color: #FFF;
+	background: url("/assets/main_background01.jpg") center center fixed;
+	filter: brightness(90%);
+	background-size: cover;
+	min-height: 700px;
+	
+}
+.header-content {
+    position: absolute;
+    margin-top: 300px;
+    padding: 0px 50px;
+    
+    width: 100%;
+    text-align: center;
+    
+}
+
+.header-content-inner {
+    margin-right: 20px;
+    margin-left: 200px;
+    margin-top: 90px;
+    max-width: 900px;
+}
+
+.header-content-inner p {
+    
+    font-size: 2.5em;
+    font-weight: 300;
+    line-height: 1.2em;
+    font-family: 'Raleway', sans-serif;
+    color: #FFFAFA;
+    margin-bottom: 50px;
+
+}
+
+.btn-get-started{
+    color: #858585;
+	background-color: white !important;
+	border-color: white;
+}
+.btn-get-started:hover{
+    color: #858585;
+	background-color: white !important;
+	border-color: white;
+}
+.service-box{
+	margin: 20px auto 0px;
+	max-width: 400px;
+	font-family: 'Raleway', sans-serif;	
+}
+.img-align {
+    width: 32%;
+}
+.p-services{
+	font-family: 'Raleway', sans-serif;	
+	font-size: 15px;
+	line-height: 1.5em;
+}
+img{
+	width: 180px;
+	height: 150px;
+}
+.container{
+	margin-top: 30px;
+}
+.services-container{
+	margin-top: 50px;
+}
+
+hr {
+    
+    border-color: #FFB35C;
+    border-width: 3px;
+}
+.primary-small{
+	max-width: 50px;
+    border-color: #FFB35C;
+    border-width: 1.5px;
+    margin-top: 5px;
+	margin-bottom: 10px;
+}
+.img-responsive{
+	height: 229px;
+	width: 437px
+}
+.portfolio-box {
+    max-width: 650px;
+    position: relative;
+    display: block;
+    margin: 0px auto;
+}
+.no-gutter > [class*="col-"] {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.col-sm-6 {
+    width: 33%;
+}
+.no-gutter {
+    margin-left: -35px;
+    margin-right: -47px;
+}
+.container-fluid-services{
+	margin-top:30px;
+}
+.container-fluid-contact{
+	margin-top:90px;
+}
+.column4{
+	    text-align: center;
+    	background: #FFB35C;
+    	padding: 30px 0;
+    	min-height: 230px;
+    	margin-left: 50px;
+    	margin-top: 50px;
+    	margin-bottom: 40px;
+   		border-radius: 50%;
+    	width: 230px;
+}
+.column4 .icon{
+	font-size: 4em;
+    color: #FFFFFF;
+    display: block;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+.column4 .title{
+	    font-size: 2em;
+    	font-weight: 300;
+    	color:  #FFFFFF;	
+}
+.column4 p{
+	    font-size: 15px;
+    	font-weight: 100;
+    	color:  #FFFFFF;
+    	margin-top: 10px;	
+}
+.column4 a{
+	    font-size: 15px;
+    	font-weight: 100;
+    	color:  #FFFFFF;
+    	margin-top: 10px;	
+}
+.column4 a:hover{
+	    font-size: 15px;
+    	font-weight: 100;
+    	color:  #FFFFFF;
+    	background-color: transparent;
+    	margin-top: 10px;	
+}
+.row-contact{
+	
+margin: auto;
+padding: 10px;   
+
+}
+
+footer{
+	border-top: 1px solid #ccc;
+	font-size: 1em;
+	
+	text-align: center;
+	margin-top: 30px;
+	margin-left: -20px;
+	
+	margin-right: -20px;
+}
+.img-services{
+	border-radius: 10%;
+}
+.col-user-specs{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+//Login page css
+
+//nav-bar settings
+.login-error{
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 100;
+    color: red;
+    margin-left: 96px;
+    margin-top: -10px;
+}
+.nav-bar-login{
+    background-color: #fff;
+        margin-top: -17.5px;
+        margin-left: -20px;
+        margin-right: -20px;
+        height: 60px;
+
+}
+.login-body{
+    background-color: #EDEBE6;
+    height: 510px;
+    margin-top: -30px;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+.login-row{
+    
+    
+    width: 100%;
+    margin: 70px;
+    margin-left: auto;
+    
+}
+.login-row p{
+   text-align: center; 
+   font-size: 1.8em;
+   font-family: 'Raleway', sans-serif;
+   font-weight: 100;
+
+}
+.login-row input[type=submit].btn-block{
+    width: 170%;
+    margin-left: auto;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+}
+
+.login-row input[type="text"], input[type="password"], select, label{
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+}
+.login-page-footer{
+    margin-top: 0px;
+}
+
+
+//ACTIVITIES PAGE CSS
+.navbar-after-login{
+    position: fixed;
+    width: 100%;
+    height: px;
+    margin-top: -1px;
+}
+
+.sidebar-after-login{
+    position: fixed;
+    margin-top: 40px;
+}
+.page-sidebar .sidebar-menu > li{
+    height: 50px;
+    
+    padding: 0px;
+}
+
+.page-sidebar .sidebar-menu>li>a {
+    height: 50px;   
+    font-size: 1.2em;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+    padding: 7px;
+}
+.page-sidebar .sidebar-menu>li>a:hover {
+   background-color: #e3e3e3;
+}
+
+.page-sidebar .sidebar-menu>li > a:click {
+   background-color: #e3e3e3;
+}
+
+#imageActivity{
+    width: 520px;
+    margin-left: -12px;
+    margin-top: -11px;
+    height: 280px;
+}
+.activities-width{
+    width: 550px;
+    
+}
+.widget-footer{
+    background-color: white;
+}
+.widget-footer p{
+    background-color: white;
+}
+.widget-body{
+    height: auto;
+}
+.activity-header{
+    margin-top: 115px;
+}
+.activity-post{
+    width: 520px;
+    margin-left: 13px;
+}
+.list-box, .list-box-home{
+    margin-left: 620px;
+    position: fixed;
+    width: 270px;
+}
+.list-box-home{
+    margin-top: 115px;
+    
+}
+.profile__image{
+    text-align: center;
+    line-height: 125px;
+    background: #eee;
+    overflow: hidden;
+    font-family: 'Raleway', sans-serif;
+    font-size: 2em;
+    font-weight: 300;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%; 
+    margin-left: 34px;
+    margin-bottom: 17px;   
+}
+.widget-for-user{
+    height: 170px;
+    padding: 18px;
+    box-shadow: 0 0 1px 0;
+}
+.widget-classes-body{
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    box-shadow: 0 0 1px 0;
+}
+.widget-classes-body .row:hover{
+    background-color: #E4EBF1;  
+}
+.widget-classes-body a:hover{
+    background-color: transparent;
+    font-color: black;
+
+}
+.row-specs-header{
+    background-color: #EDEBE6;
+    margin-top: -11px;
+    width: 240px;
+    margin-left: -12px;
+    text-align: center;
+    font-size: 1.1em;
+}
+.div-pagination{
+    
+}
+.widget-classes-body .row:hover{
+    margin-right: -12px;
+    margin-left: -12px;  
+}
+
+
+//Up Coming events CSS
+.calendar-upcoming-events{
+    background-color: white;
+    padding: 100px;
+    border-style: solid;
+    margin-top: 110px;
+    width: 980px;
+    height: 600px;
+    border-width: 1px;
+    margin-left: 50px;
+}
+.fc-toolbar{
+    margin-top: -65px;
+}
+.div-upcoming-events{
+    background-color: #EEEEEE;
+    width: 1500px;
+    margin-left: -20px;
+    height: 800px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+
+
+//Event detail
+.event-detail-header{
+    margin-top: 65px;
+    margin-left: 170px;
+    background: url("/assets/event.jpg") center;
+    filter: brightness(90%);
+    background-size: contain;
+    width: 600px;
+    padding: 75px;
+}
+.event-detail-header p{
+    margin-top: 170px;
+    margin-left: -56px;
+    margin-bottom: -58px;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    font-size: 2.8em;
+    font-weight: 300;
+    
+}
+.panel-thumbnail-event-detail{
+    width: 200px;
+}
+.event-title{
+    margin-top:30px;
+}
+.event-desc{
+    background-color: white;
+    width: 600px;
+    height: auto;
+    margin-left: 170px;
+    border: 8px;
+    border-radius: 6px;
+}
+.event-desc p{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    font-size: 15px;
+    line-height: 18px;
+}
+.hr-event-detail{
+    width: 600px;
+    margin-left: -15px;
+    border-color: #D1D1D1;
+    border-width: 2px;
+}
+.align-btn-group{
+    margin-left: 280px;
+}
+
+//TERMS CSS
+.div-terms{
+    margin-left: 40px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+
+}
+.div-terms h2, p{
+    font-family: 'Raleway', sans-serif;
+    font-size: 2em;
+}
+.div-terms p{
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+}
+
+// Registration CSS
+.loading-gif{
+    width: 33px;
+    height: 33px;
+}
+.div-registration-form{
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    height: 600px;
+    background-color: #EDEBE6;
+    
+}
+.form-registration{
+    width: 650px;
+    margin-left: 280px;
+    margin-top: 35px;
+    font-family: 'Raleway', sans-serif; 
+    height: 200px;       
+}
+.row-registration{
+   margin-right: -200px;
+    margin-left: 40px; 
+}
+.title-registration{
+        margin-top: -20px;
+}
+.btn-register{
+    width: 470px;
+    margin-left: -102px;
+}
+
+
+//POPUP CSS
+.ui-widget-header{
+    background: #eee;
+    width: 297px;
+    margin-left: -3px;
+    margin-top: -3px;
+    border: 0px;
+    height: 40px;
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.7em;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+#tableParticipantList{
+    width: 292px;
+    margin-left: -13px;
+}
+
+//Student list css
+.student-table{
+    margin-top: 126px;
+}

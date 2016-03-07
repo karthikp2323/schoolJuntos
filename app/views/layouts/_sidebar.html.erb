@@ -1,9 +1,7 @@
 
                 <!-- Page Sidebar Header-->
                 <div class="sidebar-header-wrapper">
-                    <input type="text" class="searchinput" />
-                    
-                    
+                    <input type="text" class="searchinput" />             
                 </div>
                 
                 <!-- /Page Sidebar Header -->
@@ -13,41 +11,40 @@
                 <% if session[:role_type] == "Admin"%>   
                     <li >
                         <a href="/activities/new">
-                            <i class="menu-icon glyphicon glyphicon-home"></i>
-                            <span class="menu-text"> Home </span></a>
+                        <i class="menu-icon glyphicon glyphicon-home"></i>
+                        <span class="menu-text"> Home </span></a>
                     </li>
+
                     <li >
                         <a href="/school_users/new">
-                            <i class="menu-icon glyphicon glyphicon-pencil"></i>
-                            <span class="menu-text"> Add Teacher </span></a>
+                        <i class="menu-icon glyphicon glyphicon-pencil"></i>
+                        <span class="menu-text"> Add Teacher </span></a>
                     </li>
-                    <li >
 
+                    <li >
                         <a href="/school_users">
-                            <i class="menu-icon glyphicon glyphicon-th-list"></i>
-                            <span class="menu-text"> Teacher list </span></a>
+                        <i class="menu-icon glyphicon glyphicon-th-list"></i>
+                        <span class="menu-text"> Teacher list </span></a>
                     </li>
-                   <!-- <li >
-
-                        <a href="/parents/new">
-                            <i class="menu-icon glyphicon glyphicon-pencil"></i>
-                            <span class="menu-text"> Add Students </span></a>
-                    </li> -->
+                  
                     <li >
-
                         <a href="/classrooms">
-                            <i class="menu-icon glyphicon glyphicon-th-list"></i>
-                            <span class="menu-text"> Class List </span></a>
+                        <i class="menu-icon glyphicon glyphicon-th-list"></i>
+                        <span class="menu-text"> Class List </span></a>
                     </li>
+
                     <% elsif session[:role_type] == "Teacher"
                         %>
-                    
-                    
+                
                     <li class="dropdown">
-
                         <a href="/school_users/schoolUserHomeView">
-                            <i class="menu-icon glyphicon glyphicon-pencil"></i>
-                            <span class="menu-text"> Home </span></a>
+                        <i class="menu-icon glyphicon glyphicon-home"></i>
+                        <span class="menu-text"> Home </span></a>
+                    </li>
+                     <li class="dropdown">
+                        <a href="/events">
+                        <i class="menu-icon glyphicon glyphicon-calendar"></i>
+                        <span class="menu-text"> UpComing Events </span></a>
                     </li>
 
 
@@ -56,17 +53,15 @@
                     
                     
                     <li>
-
                         <a href="/school_users/schoolUserHomeView">
-                            <i class="menu-icon glyphicon glyphicon-pencil"></i>
-                            <span class="menu-text"> Home </span></a>
+                        <i class="menu-icon glyphicon glyphicon-pencil"></i>
+                        <span class="menu-text"> Home </span></a>
                     </li>
-
-
-                    
-                   
-                    
+              
                         <%end%>
                     
                 </ul>
                 <!-- /Sidebar Menu -->
+
+
+

@@ -1,20 +1,163 @@
 
-<!-- <table>
-<tr>
-<td col-span=3><%= button_to 'Add Teacher', { :controller => "school_users",:action => "new" }, :method => :get %></td>
-<td col-span=3><%= button_to 'Teacher list', {:controller => "school_users", :action => "listTeachers"} %></td>
-</tr>
-<tr>
-<td col-span=3><%= button_to 'Post Activity', {:controller => "activities", :action => "new"}, :method => :get %></td>
-</tr>
+<body class="landing-body">
+<nav class="navbar navbar-default custom-nav-bar">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+                <small>
+                            <img src="/assets/logo01.png" alt="" />
+                        </small>
+              </a>
+    </div>
 
-</table> -->
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li><a href="#features">Features</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li class="login-li"><a href="/home/login">
+          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Login</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
-
-<div id="avtivities" >
-<%= render 'activity' %>
+<header>
+        
+<div class="div">
+    <div class="header-content">
+            <div class="header-content-inner">
+                
+                <p>Providing seamless communication between parents and school community</p>
+                <a href="/schools/new" class="btn btn-primary btn-get-started">Get Started Free Today!</a>
+            </div>
+    </div>
 </div>
 
-<%= will_paginate @activities %>
+</header>
+
+<section id="features">
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">At Your Service</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container services-container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center img-align">
+                    <div class="service-box">
+                        <img class="img-services" src="/assets/school.jpg" height="42" width="42" >
+                        <h3>For Schools</h3>
+                        <hr class="primary-small">
+                        <p class="text-muted p-services">Manage your classrooms, schedule events, stay in touch with parents, and many more..</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center img-align">
+                    <div class="service-box">
+                        <img class="img-services" src="/assets/parents.jpg">
+                        <h3>For Parents</h3>
+                        <hr class="primary-small">
+                        <p class="text-muted p-services">Get your child's daily activity, able to communicate with teachers, and many more..</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center img-align">
+                    <div class="service-box">
+                        <img class="img-services" src="/assets/student.jpg">
+                        <h3>For Students</h3>
+                        <hr class="primary-small">
+                        <p class="text-muted p-services">Check class activities, scheduled events, and many more..</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
 
 
+        <div class="container-fluid-services">
+            <div class="row no-gutter">
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#" >
+                        <img src="assets/misc2.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#" >
+                        <img src="assets/misc4.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#" >
+                        <img src="assets/misc3.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+     </section>
+
+     <section id="contact">
+        <div class="container">
+          <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <hr class="primary">
+                    <p> That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                </div> 
+                </div>
+                    <div class="row row-contact">
+                       
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="column4">
+                                <span class="icon"><i class="glyphicon glyphicon-home"></i></span>
+                                <span class="title">Mail</span>
+                                <p>5131 Post Rd <br>Dublin, OH 43016</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="column4">
+                                <span class="icon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <span class="title">Email</span>
+                                <p><a href="mailto:schoolapp@dsiginc.com">schoolapp@dsiginc.com</a></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="column4">
+                                <span class="icon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                <span class="title">Contact</span>
+                                <p>(614).932.1458</p>
+                            </div>
+                        </div>
+                    </div>
+               
+            
+        </div>
+</body>
+       
+        <!-- Footer -->
+        <%= render 'home/footer' %>
+        <!-- / Footer -->
+
+    </section>
+
+     

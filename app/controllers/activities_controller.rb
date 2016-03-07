@@ -20,19 +20,21 @@ class ActivitiesController < ApplicationController
       
       @activity = Activity.new #For creating new activity
       @classroom_id = 1
-      @activities = Activity.where(school_id: session[:school_id]).order("created_at DESC").page(params[:page]).per_page(5)
+      @activities = Activity.where(school_id: session[:school_id]).order("created_at DESC").page(params[:page]).per_page(10)
       elsif session[:role_type] == "Parent"
        
       @activity = Activity.new  
-      @activities = Activity.where(classroom_id: ClassRegistration.select("classroom_id").where(student_id: params[:student_id])).order("created_at DESC").page(params[:page]).per_page(5)
+      @activities = Activity.where(classroom_id: ClassRegistration.select("classroom_id").where(student_id: params[:student_id])).order("created_at DESC").page(params[:page]).per_page(10)
      
       
       
       else 
-      #@class_details = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
+      
+      @class_details = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
       @activity = Activity.new #For creating new activity
       @classroom_id = params[:class_id]
-      @activities = Activity.where("classroom_id = ? AND school_user_id = ?", params[:class_id], session[:user_id]).order("created_at DESC").page(params[:page]).per_page(5)
+      @classname = params[:classname]
+      @activities = Activity.where("classroom_id = ? AND school_user_id = ?", params[:class_id], session[:user_id]).order("created_at DESC").page(params[:page]).per_page(10)
     end
 
   end

@@ -7,4 +7,5 @@ class SchoolUser < ActiveRecord::Base
   belongs_to :activity
 
   has_many :classroom
+  has_many :event
 end

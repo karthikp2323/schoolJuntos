@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202171318) do
+ActiveRecord::Schema.define(version: 20160218194111) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -158,6 +158,16 @@ ActiveRecord::Schema.define(version: 20160202171318) do
     t.datetime "updated_at"
   end
 
+  create_table "studentlogindetails", force: :cascade do |t|
+    t.string   "login_id",        limit: 255
+    t.string   "password_digest", limit: 255
+    t.integer  "student_id",      limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "studentlogindetails", ["student_id"], name: "index_studentlogindetails_on_student_id", using: :btree
+
   create_table "students", force: :cascade do |t|
     t.string   "first_name",        limit: 255
     t.string   "last_name",         limit: 255
@@ -173,6 +183,7 @@ ActiveRecord::Schema.define(version: 20160202171318) do
     t.integer  "parent_id",         limit: 4
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.boolean  "IsLogIn"
   end
 
   add_index "students", ["parent_id"], name: "index_students_on_parent_id", using: :btree
@@ -214,6 +225,7 @@ ActiveRecord::Schema.define(version: 20160202171318) do
   add_foreign_key "messages", "school_users"
   add_foreign_key "school_users", "roles"
   add_foreign_key "school_users", "schools"
+  add_foreign_key "studentlogindetails", "students"
   add_foreign_key "students", "parents"
   add_foreign_key "students", "schools"
 end
