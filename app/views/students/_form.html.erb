@@ -1,7 +1,11 @@
+<div class="page-breadcrumbs">
+  <h> <a href="/school_users/schoolUserHomeView"> Home </a> /  <%= @classname %>  /  Student List  / Edit Student </h>
+</div>
+
 <div class="col-lg-8 col-sm-8 col-xs-8">
-                <div class="widget">
+                <div class="widget" style="margin-top: 115px;">
 <div class="widget-header bordered-bottom bordered-blue">
-                        <span class="widget-caption">Edit Students </span>
+                        <span >Edit Students </span>
                     </div>
                     <div class="widget-body ">
                         <div>
@@ -115,18 +119,18 @@
                      </span>
                   </div>
                 </div>
-        </div>
-    
-  
-   
+        </div>   
   
     
-  
     <%= f.text_field :school_id, hidden: true %>
   
     <%= f.text_field :parent_id, hidden: true %>
-  
-  <button type="submit" class="btn btn-blue">Post</button> |  <%= link_to 'Back', {:controller => "students", :action => "index", :classroomId => @classroomId} %> 
+
+    <%= hidden_field_tag(:classname, @classname) %>
+
+    <%= hidden_field_tag(:classroomId, @classroomId) %>
+
+  <button type="submit" class="btn btn-blue">Post</button> |  <%= link_to 'Back', {:controller => "students", :action => "index", :classroomId => @classroomId, :classname => @classname} %> 
     </div>
       </div>
         </div>

@@ -3,25 +3,33 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+.navbar .navbar-brand small img {
+    height: 50px;
+    width: 200px;
+}
+
+.navbar .navbar-inner {
+    min-height: 54px;
+}
 
 .page-body{
 	background: #FFFFFF
 }
 
 .page-breadcrumbs{
-    margin-top: 50px;
+    margin-top: 61px;
     margin-left: -20px;
 
     background-color: #FFF;
     position: fixed;
-    width: 1500px;
+    min-width: 100%;
 }
 
 .page-breadcrumbs h{
     margin-left: 15px;
     font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 300;
 }
 .page-breadcrumbs a:hover{
     background-color: transparent;
@@ -58,24 +66,22 @@ header{
 	background: url("/assets/main_background01.jpg") center center fixed;
 	filter: brightness(90%);
 	background-size: cover;
-	min-height: 700px;
+	min-height: 800px;
+    background-position: bottom;
 	
 }
 .header-content {
     position: absolute;
-    margin-top: 300px;
-    padding: 0px 50px;
-    
+    margin-top: 430px;
     width: 100%;
     text-align: center;
     
 }
 
 .header-content-inner {
-    margin-right: 20px;
-    margin-left: 200px;
-    margin-top: 90px;
-    max-width: 900px;
+    width: 60%;
+
+    padding: 10px;
 }
 
 .header-content-inner p {
@@ -86,14 +92,26 @@ header{
     font-family: 'Raleway', sans-serif;
     color: #FFFAFA;
     margin-bottom: 50px;
+    text-shadow: -0px 0 #777, 0 2px #777, 1px 0 #777, 0 0px #777;
 
 }
 
 .btn-get-started{
-    color: #858585;
-	background-color: white !important;
-	border-color: white;
+    width: 350px;
+    height: 45px;
+    font-size: 23px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
 }
+
+.btn-get-started a{
+    width: 350px;
+    height: 45px;
+    font-size: 23px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+}
+
 .btn-get-started:hover{
     color: #858585;
 	background-color: white !important;
@@ -137,7 +155,8 @@ hr {
 }
 .img-responsive{
 	height: 229px;
-	width: 437px
+	width: 437px;
+
 }
 .portfolio-box {
     max-width: 650px;
@@ -289,6 +308,38 @@ footer{
 
 
 //ACTIVITIES PAGE CSS
+.hr-activities{
+    border-color: #f4b400;
+    border-width: 1px;
+    margin-left: 4px;
+    width: 520px;
+}
+.widget-footer{
+    background-color: white;
+}
+.widget-footer p{
+    background-color: white;
+}
+.widget-body{
+    height: auto;
+    background-color: white;
+    -webkit-box-shadow: 0 0 0 0;
+   
+   
+}
+.widget-header{
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    text-align: left;
+    box-shadow: 0 1px 0 0 #999;
+    padding: 10px;
+    font-weight: 600;
+    
+}
+.widget-header p{
+    margin-top: 9px;
+    font-weight: 300;
+}
 .navbar-after-login{
     position: fixed;
     width: 100%;
@@ -322,7 +373,7 @@ footer{
 }
 
 #imageActivity{
-    width: 520px;
+    width: 550px;
     margin-left: -12px;
     margin-top: -11px;
     height: 280px;
@@ -331,15 +382,7 @@ footer{
     width: 550px;
     
 }
-.widget-footer{
-    background-color: white;
-}
-.widget-footer p{
-    background-color: white;
-}
-.widget-body{
-    height: auto;
-}
+
 .activity-header{
     margin-top: 115px;
 }
@@ -348,8 +391,8 @@ footer{
     margin-left: 13px;
 }
 .list-box, .list-box-home{
-    margin-left: 620px;
-    position: fixed;
+    
+    float: right;
     width: 270px;
 }
 .list-box-home{
@@ -412,33 +455,31 @@ footer{
     padding: 100px;
     border-style: solid;
     margin-top: 110px;
-    width: 980px;
-    height: 600px;
+    
     border-width: 1px;
-    margin-left: 50px;
+    
 }
 .fc-toolbar{
     margin-top: -65px;
 }
 .div-upcoming-events{
-    background-color: #EEEEEE;
-    width: 1500px;
-    margin-left: -20px;
-    height: 800px;
-    margin-top: -20px;
-    margin-bottom: -20px;
+    //background-color: #EEEEEE;
+    width: auto;
+    margin: auto;
 }
 
 
 //Event detail
 .event-detail-header{
-    margin-top: 65px;
-    margin-left: 170px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
     background: url("/assets/event.jpg") center;
     filter: brightness(90%);
-    background-size: contain;
-    width: 600px;
-    padding: 75px;
+    background-size: cover;
+    padding: 70px;
+   
 }
 .event-detail-header p{
     margin-top: 170px;
@@ -460,7 +501,8 @@ footer{
     background-color: white;
     width: 600px;
     height: auto;
-    margin-left: 170px;
+    margin-left: auto;
+    margin-right: auto;
     border: 8px;
     border-radius: 6px;
 }
@@ -512,10 +554,11 @@ footer{
 }
 .form-registration{
     width: 650px;
-    margin-left: 280px;
-    margin-top: 35px;
+    
+    margin: auto;
     font-family: 'Raleway', sans-serif; 
-    height: 200px;       
+    float: none;
+    padding-top: 55px;       
 }
 .row-registration{
    margin-right: -200px;

@@ -18,13 +18,15 @@
             </div>
           </div>
 
+
+
           <div class="widget-body widget-classes-body">
              <div class="row row-specs-header"><span class="caption-align-center">My Classes </span> </div>
               <% @class_details.each do |classdetails| %>
                    <div class="row">
                       <div class="col-sm-6 col-user-specs">
              
-                              <a href='/activities/new?class_id=<%=classdetails.id%> '>     
+                              <a href='/activities/new?class_id=<%=classdetails.id%>&classname=<%= classdetails.class_name%> '>     
                               <span class="menu-text"> <%= classdetails.class_name%> </span></a>
                       </div>
                    </div>   
@@ -55,7 +57,7 @@
 
   </div> <!-- EOF div main row-->
 
-        <div id="avtivities" class="row">
+        <div id="avtivities" class="row" style="margin-top: -80px; margin-left: 0px;">
            <%= render 'activity' %>
         </div>
           

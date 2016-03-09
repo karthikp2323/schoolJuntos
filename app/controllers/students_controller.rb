@@ -6,7 +6,7 @@ class StudentsController < ApplicationController
   def index
 
     @registrations = ClassRegistration.includes(:student).where("classroom_id = " + params[:classroomId])
-    
+    @classname = params[:classname]
     @classroomId = params[:classroomId]
     @students = []
       @registrations.each do |registration|
@@ -39,8 +39,10 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
-
+   
+   @classname = params[:classname]
    @classroomId = params[:classroomId]
+
   end
 
   # POST /students
@@ -62,9 +64,10 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
+    
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        format.html { redirect_to students_path(:classroomId => params[:classroomId], :classname => params[:classname]), notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit }

@@ -63,10 +63,15 @@ class ParentsController < ApplicationController
   # POST /parents.json
   def create
       #@classregistration = ClassRegistration.new(class_registration_params) 
-    
+   begin 
+    randNum = Random.new
     
     @parent = Parent.new(parent_params)
-
+    
+    @parent.login_id = parent_params[:students_attributes]["0"][:first_name] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
+    @parent.password = parent_params[:students_attributes]["0"][:first_name][0..3] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
+    
+debugger 
     respond_to do |format|
       if @parent.save
         
@@ -79,20 +84,32 @@ class ParentsController < ApplicationController
         regObj.save
 
           if regObj.save
-            @parentObj = Parent.new
             
-            UserMailer.registration_confirmation(@school_user).deliver
+            @parentObj = OpenStruct.new
+            @parentObj.login_id = parent_params[:students_attributes]["0"][:first_name] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
+            @parentObj.password = parent_params[:students_attributes]["0"][:first_name][0..3] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
+            @parentObj.first_name = parent_params[:dad_fname]
+            @parentObj.last_name = parent_params[:dad_lname]
+            @parentObj.email_id = parent_params[:email_id]
+            
+            
+            UserMailer.registration_confirmation(@parentObj).deliver
+           
+          end # // EOF regObj.save
 
-          end
-
-        format.html { redirect_to controller: 'students', action: 'index', classroomId: params[:classroomId] , notice: 'Parent was successfully created.' }
+        format.html { redirect_to controller: 'students', action: 'index', classroomId: params[:classroomId] , notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @parent }
-      else
+      else 
         format.html { render :new }
         format.json { render json: @parent.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+      end # // EOF if @parent.save
+    end #  // EOF respond_to do |format|
+
+    rescue Exception => e
+              
+    end  # // EOF begin
+
+  end  # // EOF def create
 
   # PATCH/PUT /parents/1
   # PATCH/PUT /parents/1.json

@@ -1,5 +1,5 @@
 <div class="page-breadcrumbs">
-  <h> <a href="/school_users/schoolUserHomeView"> Home </a> / <%= @classname %>   </h>
+  <h> <a href="/school_users/schoolUserHomeView"> Home </a> / <a href="/activities/new?class_id=<%= @classroomId %>&classname=<%=@classname%>" > <%= @classname %>  </a> / Student List </h>
 </div>
 
 
@@ -9,7 +9,7 @@
 
 <div class="widget">
           <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">Student's List</span>
+                <span >Student's List</span>
                 <!-- <div class="widget-buttons">
                     <a href="#" data-toggle="maximize">
                         <i class="fa fa-expand"></i>
@@ -30,12 +30,8 @@
       <th>Last name</th>
       <th>Dob</th>
       <th>Emergency contact</th>
-      
-      <th>City</th>
-      
-      <th>State</th>
-      
-      <th colspan="3"></th>
+           
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -46,20 +42,14 @@
         <td><%= student.last_name %></td>
         <td><%= student.dob %></td>
         <td><%= student.emergency_contact %></td>
-        
-        <td><%= student.city %></td>
-        
-        <td><%= student.state %></td>
-       
-       
-        
+          
         <!-- <td><%= link_to 'Show', student, class: 'btn btn-info btn-xs edit' %></td> -->
         <td>
-         
 
-          <%= link_to 'Show / Edit', {:controller => "students", :action => "edit", :studentId => student.id, :classroomId => @classroomId, :id => student.id}, class: 'btn btn-info btn-xs edit' %>
+
+          <%= link_to 'Show / Edit', {:controller => "students", :action => "edit", :studentId => student.id, :classroomId => @classroomId, :classname => @classname, :urltoclass => url_for(:back)  , :id => student.id}, class: 'btn btn-info btn-xs edit' %>
             
-            <%= link_to 'Destroy', {:controller => "students", :action => "destroy", :studentId => student.id, :classroomId => @classroomId}, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-info btn-xs edit' %>
+            <%= link_to 'Delete', {:controller => "students", :action => "destroy", :studentId => student.id, :classroomId => @classroomId}, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-info btn-xs edit' %>
         </td>
       </tr>
     <% end %>
