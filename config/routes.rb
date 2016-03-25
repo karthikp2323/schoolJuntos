@@ -49,6 +49,9 @@ Rails.application.routes.draw do
 
   get 'events/eventUserDetailList', to: 'events#eventUserDetailList'
 
+  get 'classrooms/getClassesForTeacher', to: 'classrooms#getClassesForTeacher'
+  get 'classrooms/getStudentsList', to: 'classrooms#getStudentsList'
+
   #devise_for :users
   resources :parents
   resources :activities

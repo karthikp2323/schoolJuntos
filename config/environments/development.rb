@@ -47,7 +47,7 @@ Rails.application.configure do
   :port => 587,
   :domain => "1and1.com",
   :user_name            => "schoolapp@dsiginc.com",
-  :password             => "Welcome@123",
+  :password             => "Surf2day",
   :authentication       => "plain"
   } 
 end

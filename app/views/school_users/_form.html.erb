@@ -1,18 +1,18 @@
+ 
+ <div id="post-submit-message">
+          <label id="lbl_success_message" style="color: #52B4E5;">
+            
+          </label> 
+          <label id="lbl-error-message" style="color: red;">
+            
+          </label>
+ </div>
 
                     <div class="widget-body">
                         <div>
                             <%= form_for(@school_user) do |f| %>
-  <% if @school_user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@school_user.errors.count, "error") %> prohibited this school_user from being saved:</h2>
+        
 
-      <ul>
-      <% @school_user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
         <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
@@ -26,32 +26,14 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                      <span class="input-icon icon-right">
-                     <%= f.text_field :login_id, class: 'form-control', placeholder: 'Login Id' %>
+                    <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
                      
                      </span>
                   </div>
                 </div>
         </div>
  
-    <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                     <span class="input-icon icon-right">
-                    <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
-                     
-                     </span>
-                  </div>
-                </div>
-                                            
-                <div class="col-sm-6">
-                  <div class="form-group">
-                     <span class="input-icon icon-right">
-                     <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
-                     
-                     </span>
-                  </div>
-                </div>
-        </div>
+    
 
         <div class="row">
                 <div class="col-sm-6">
@@ -64,9 +46,7 @@
                 </div>
                                             
                 
-        </div>
-
-        <div class="row">
+        
                 <div class="col-sm-6">
                   <div class="form-group">
                      <span class="input-icon icon-right">
@@ -81,17 +61,61 @@
 
     
   
-    
+   
     <%= f.text_field :role_id, {:value => 2, :hidden => true} %>
   
     
     <%= f.text_field :school_id, {:value => session[:school_id], :hidden => true} %>
- 
-  
-    <button type="submit" class="btn btn-blue">Submit</button>
+    
+    <%= f.text_field :id, {:hidden => true} %>
+   
+    
   
 <% end %>
+<input type="hidden" id="txt_edit_or_save" >
 
+<button type="submit" class="btn btn-blue" id="btn_add_teacher" onclick="addTeacherToClass()">Submit</button>
                         </div>
                     </div>
-            
+
+
+<script type="text/javascript">
+   function addTeacherToClass() {
+          //console.log("Inside 1");
+          $("#btn_add_teacher").prop("disabled",true);
+          
+          var form_data = $('form').serialize(); 
+
+          $.ajax({
+              method: "POST",
+              url: "/school_users",
+              data: form_data
+            }).done(function(data){
+             console.log(data.last_name);
+              if ($("#txt_edit_or_save").val() == "edit") {
+                  
+                  $("#"+data.id).html("<td> "+ data.first_name +" </td> <td> "+ data.last_name +" </td> <td> "+ data.email_id +" </td> <td> "+data.contact +" </td> <td> <button type='button' class='btn btn-info btn-xs' onclick='manageTeacher("+data.id+")'> Edit </button> <a class='btn btn-info btn-xs' data-confirm='Are you sure, all of his/her data will also be removed?' data-method='delete' href='/school_users/"+data.id+"'> Delete </a> <button type='button' class='btn btn-info btn-xs glyphicon glyphicon-plus' onclick='addClassToTeacher(" + '"' + data.first_name + " "+data.last_name +'"' +"," +data.id+" )'> Class </button> <button type='button' class='btn btn-info btn-xs glyphicon glyphicon-eye-open' onclick='getClasses("+data.id+")'> Classes </button>   </td>");
+
+                  $("#lbl_success_message").text("Teacher Updated!");
+                  
+              }
+              else{
+                console.log(data);
+                $("#editabledatatable").prepend("<tr id="+data.id+"><td>"+ data.first_name +"</td> <td> "+ data.last_name +" </td> <td> "+ data.email_id +" </td> <td>"+ data.contact + "</td> <td> <button type='button' class='btn btn-info btn-xs' onclick='manageTeacher("+data.id+")'> Edit </button> <a class='btn btn-info btn-xs' data-confirm='Are you sure, all of his/her data will also be removed?' data-method='delete' href='/school_users/"+data.id+"'> Delete </a> <button type='button' class='btn btn-info btn-xs glyphicon glyphicon-plus' onclick='addClassToTeacher(" + '"' + data.first_name + " "+data.last_name +'"' +"," +data.id+" )'> Class </button> <button type='button' class='btn btn-info btn-xs glyphicon glyphicon-eye-open' onclick='getClasses("+data.id+")'> Classes </button> </td></tr>");
+
+
+                //display message
+               $("#lbl_success_message").html("Teacher Added!");
+
+              }
+              
+
+      });
+
+           
+           
+      };
+     
+
+</script>
+                

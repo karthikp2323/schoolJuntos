@@ -1,5 +1,9 @@
 <div class="page-breadcrumbs">
+  <% if session[:role_type] == "Admin" %>
+  <h> <a href="/activities/new"> Home </a> / <a href="/events"> Events </a> 
+  <% else %>
   <h> <a href="/school_users/schoolUserHomeView"> Home </a> / <a href="/events"> Events </a> 
+    <% end %>
 </div>
   
   

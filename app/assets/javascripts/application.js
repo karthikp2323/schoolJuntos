@@ -13,12 +13,16 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery-ui/dialog
+//= require jquery-ui/autocomplete
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require turbolinks
 //= require_tree .
 //= require moment
 //= require fullcalendar
+//= require dataTables/jquery.dataTables
+
+
 
 
 

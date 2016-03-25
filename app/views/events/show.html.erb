@@ -1,6 +1,11 @@
 <div class="page-breadcrumbs">
+  <% if session[:role_type] == "Admin" %>
+  <h> <a href="/activities/new"> Home </a> / <a href="<%= url_for(:back) %>"> Events </a> / <%= @eventObj.event_title %> </h> 
+  <% else %>
   <h> <a href="/school_users/schoolUserHomeView"> Home </a> / <a href="<%= url_for(:back) %>"> Events </a> / <%= @eventObj.event_title %> </h>
+    <% end %>
 </div>
+
 <div class="eventdetail" style="background-color: rgb(238, 238, 238); height: 700px; margin: 0px -22px -27px -20px;">
 <div class="row">
   
@@ -22,11 +27,15 @@
           
           </div>
        </p>
+       <p> Created by: <%= @school_user.first_name %> <%= @school_user.last_name %>
+
+       </p>
 
   </div>
 <br>
 <div class="panel-body event-desc">
-       <p > <i class="glyphicon glyphicon-calendar"></i>  <%= @eventObj.event_date %> <%= @eventObj.event_time %></p>  
+       <p > <i class="glyphicon glyphicon-calendar"></i>  <%= @eventObj.event_date %> &nbsp; &nbsp; <i class="glyphicon glyphicon-time"></i> <%= @eventObj.event_time %> to <%= @eventObj.event_end_time %></p>  
+
        <hr class="hr-event-detail"></hr>
        <p > <i class="glyphicon glyphicon-map-marker"></i> <%= @eventObj.event_location %> </p>
 

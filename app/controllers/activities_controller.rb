@@ -20,7 +20,10 @@ class ActivitiesController < ApplicationController
       
       @activity = Activity.new #For creating new activity
       @classroom_id = 1
-      @activities = Activity.where(school_id: session[:school_id]).order("created_at DESC").page(params[:page]).per_page(10)
+      @activities = Activity.includes(:school_user).where(school_id: session[:school_id]).order("created_at DESC").page(params[:page]).per_page(10)
+      
+      #@activities.school_user
+      
       elsif session[:role_type] == "Parent"
        
       @activity = Activity.new  

@@ -1,7 +1,7 @@
 class Activity < ActiveRecord::Base
   require "paperclip"
   belongs_to :classroom
-  belongs_to :school_users
+  belongs_to :school_user
 
 
   has_attached_file :image, :styles => {:small => "150x150>"},

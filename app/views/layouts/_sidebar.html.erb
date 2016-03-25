@@ -15,22 +15,27 @@
                         <span class="menu-text"> Home </span></a>
                     </li>
 
-                    <li >
+                    <!-- <li >
                         <a href="/school_users/new">
                         <i class="menu-icon glyphicon glyphicon-pencil"></i>
                         <span class="menu-text"> Add Teacher </span></a>
-                    </li>
+                    </li> -->
 
                     <li >
                         <a href="/school_users">
                         <i class="menu-icon glyphicon glyphicon-th-list"></i>
-                        <span class="menu-text"> Teacher list </span></a>
+                        <span class="menu-text"> Manage Teachers </span></a>
                     </li>
                   
                     <li >
                         <a href="/classrooms">
                         <i class="menu-icon glyphicon glyphicon-th-list"></i>
-                        <span class="menu-text"> Class List </span></a>
+                        <span class="menu-text"> Manage Classes </span></a>
+                    </li>
+                     <li class="dropdown">
+                        <a href="/events">
+                        <i class="menu-icon glyphicon glyphicon-calendar"></i>
+                        <span class="menu-text"> UpComing Events </span></a>
                     </li>
 
                     <% elsif session[:role_type] == "Teacher"

@@ -10,120 +10,61 @@
       </ul>
     </div>
   <% end %>
-<div class="col-lg-12 col-sm-12 col-xs-12 animated fadeInDown" style="
-    margin-top: 115px;">
-        <div class="widget-header bg-blue">
-        <span >Register Student</span></div>
-<div class="widget flat radius-bordered fadeInDown">
-  <div class="widget-body">
-     <div id="registration-form">
-
-<form role="form">
-      <%= f.fields_for :students do |o| %>
-   
-   <div class="form-title">
-     Student Information
-   </div>
-
-<div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-             <span class="input-icon icon-right">
-                <%= o.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
-                  <i class="glyphicon "></i>
-              </span>
-          </div>
-        </div>
-        
-        <div class="col-sm-6">
-           <div class="form-group">
-              <span class="input-icon icon-right">
-                 <%= o.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
-                    <i class="glyphicon "></i>
-               </span>
-            </div>
-        </div>
-    </div>
-   
-  <!-- <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-             <span class="input-icon icon-right">
-                <%= o.date_field :dob, class: 'form-control' , placeholder: 'DOB' %>
-                  <i class="glyphicon "></i>
-              </span>
-          </div>
-        </div>
-        
-        <div class="col-sm-6">
-           <div class="form-group">
-              <span class="input-icon icon-right">
-                 <%= o.text_field :emergency_contact, class: 'form-control', placeholder: 'Emergency Contact' %>
-                    <i class="glyphicon "></i>
-               </span>
-            </div>
-        </div>
-    </div>
-     
-     <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-             <span class="input-icon icon-right">
-                <%= o.text_field :address_line1, class: 'form-control' , placeholder: 'Address Line 1' %>
-                  <i class="glyphicon "></i>
-              </span>
-          </div>
-        </div>
-        
-        <div class="col-sm-6">
-           <div class="form-group">
-              <span class="input-icon icon-right">
-                 <%= o.text_field :address_line2, class: 'form-control', placeholder: 'Address Line 2' %>
-                    <i class="glyphicon "></i>
-               </span>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-             <span class="input-icon icon-right">
-                <%= o.text_field :city, class: 'form-control' , placeholder: 'City' %>
-                  <i class="glyphicon "></i>
-              </span>
-          </div>
-        </div>
-        
-        <div class="col-sm-6">
-           <div class="form-group">
-              <span class="input-icon icon-right">
-                 <%= o.text_field :zip, class: 'form-control', placeholder: 'Zip' %>
-                    <i class="glyphicon "></i>
-               </span>
-            </div>
-        </div>
-    </div>
-     
-     <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-             <span class="input-icon icon-right">
-                <%= o.text_field :state, class: 'form-control' , placeholder: 'State' %>
-                  <i class="glyphicon "></i>
-              </span>
-          </div>
-        </div>
-        
-        <div class="col-sm-6">
-           <div class="form-group">
-              <span class="input-icon icon-right">
-                 <%= o.text_field :country, class: 'form-control', placeholder: 'Country' %>
-                    <i class="glyphicon "></i>
-               </span>
-            </div>
-        </div>
+<div class="col-lg-12 col-sm-12 col-xs-12 animated fadeInDown" > <!-- div main 
+    
+    <div class="widget-header bg-blue">
+        <span >Register Student</span>
     </div> -->
+<div class="widget flat radius-bordered fadeInDown"> 
+  <div class="widget-body"> 
+     <div id="registration-form"> 
+
+    <form role="form">
+        <%= f.fields_for :students do |o| %>
+   
+          <div class="form-title">
+            Student Information
+          </div>
+
+          <div class="row"> <!-- div row 1 -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                   <span class="input-icon icon-right">
+                      <%= o.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
+                        <i class="glyphicon "></i>
+                    </span>
+                </div>
+              </div>
+              
+              <div class="col-sm-6">
+                 <div class="form-group">
+                    <span class="input-icon icon-right">
+                       <%= o.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
+                          <i class="glyphicon "></i>
+                     </span>
+                    
+                  </div>
+              </div>
+          </div>  <!-- /div row 1 -->
+   
+          <div class="row"> <!-- div row 1 -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                   <span class="input-icon icon-right">
+                       <%= o.text_field :email_id, class: 'form-control', placeholder: 'Email Id' %>
+                          <i class="glyphicon "></i>
+                     </span>
+                </div>
+              </div>
+              
+              <div class="col-sm-6">
+                 <div class="form-group">
+                    
+                     <%= o.check_box :IsLogIn, class: 'check-box', onclick: 'show_emailbox_for_student()' %> <label> Grant Student Access </label>
+                  </div>
+              </div>
+          </div>  <!-- /div row 1 -->
+ 
       
       <%= hidden_field_tag(:classroomId, @classroomId) %>
   <% end %>
@@ -131,7 +72,7 @@
               Parent Information
           </div>
 
-    <div class="row">
+    <div class="row"> <!-- div row 2 -->
         <div class="col-sm-6">
           <div class="form-group">
              <span class="input-icon icon-right">
@@ -149,9 +90,9 @@
                </span>
             </div>
         </div>
-    </div>
+    </div> <!-- /div row 2 -->
 
-    <div class="row">
+    <div class="row"> <!-- div row 3 -->
         <div class="col-sm-6">
           <div class="form-group">
              <span class="input-icon icon-right">
@@ -169,9 +110,9 @@
                </span>
             </div>
         </div>
-    </div>
+    </div> <!-- /div row 3 -->
 
-    <div class="row">
+    <div class="row"> <!-- div row 4 -->
         <div class="col-sm-6">
           <div class="form-group">
              <span class="input-icon icon-right">
@@ -181,48 +122,72 @@
           </div>
         </div>
         
-     <!--   <div class="col-sm-6">
-           <div class="form-group">
-              <span class="input-icon icon-right">
-                 <%= f.text_field :contact, class: 'form-control', placeholder: 'Contact' %>
-                    <i class="glyphicon glyphicon-earphone"></i>
-               </span>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
+     
         <div class="col-sm-6">
           <div class="form-group">
-             <span class="input-icon icon-right">
-                <%= f.text_field :login_id, class: 'form-control', placeholder: 'Login Id' %>
-                  <i class="glyphicon "></i>
-              </span>
+             
+
+          </div>
+        </div>
+  
+        
+    </div> <!-- /div row 4 -->   
+
+      </form> <!-- form tag end -->
+     </div>  <!-- /div registration -->
+    </div> <!-- /div widget-body -->
+   </div>  <!-- /div widget -->
+  </div> <!-- /div main-->
+<% end %>
+        
+    <div class="row"> <!-- div row 3 -->
+        <div class="col-sm-6">
+          <div class="form-group">
+             <button type="submit" id="btn_add_student" class="btn btn-blue" onclick="addStudent()"> Submit </button>
           </div>
         </div>
         
         <div class="col-sm-6">
            <div class="form-group">
-              <span class="input-icon icon-right">
-                 <%= f.text_field :password, class: 'form-control', placeholder: 'Password' %>
-                    <i class="glyphicon "></i>
-               </span>
+              <label id="lbl_add_student_message" style="color: #52B4E5;"></label>
             </div>
         </div>
-    </div> -->
-
-  
-
-  
+    </div> <!-- /div row 3 -->
 
 
 
-  <button type="submit" class="btn btn-blue" >Submit</button>
+<script type="text/javascript">
 
-     </form><!-- form tag end -->
-   </div>
-   </div>
-   </div>
-   </div>
-<% end %>
 
+
+  function show_emailbox_for_student() {
+    if($('#parent_students_attributes_0_IsLogIn').is(":checked"))
+    {
+      $('#parent_students_attributes_0_email_id').show();
+    }
+    else{
+      $('#parent_students_attributes_0_email_id').hide();
+      $('#parent_students_attributes_0_email_id').val("");
+    }
+        
+  }
+
+  function addStudent(){
+
+      $("#btn_add_student").prop("disabled",true);
+
+      var form_data = $('form').serialize(); 
+
+
+      $.ajax({
+        method: "POST",
+        url: "/parents/create",
+        data: form_data
+      }).done(function(data){
+          console.log(data);
+          $("#lbl_add_student_message").text("Student Added!")
+      });
+
+
+  }
+</script>

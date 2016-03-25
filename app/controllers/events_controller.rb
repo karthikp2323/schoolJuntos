@@ -6,7 +6,13 @@ class EventsController < ApplicationController
   def index
     
     if (params[:start] && params[:end])
-      eventsList1 = Event.where(school_user_id: session[:user_id],event_date: params[:start]..params[:end])
+
+      if session[:role_type]  == "Admin"
+      eventsList1 = Event.where(event_date: params[:start]..params[:end], school_id: session[:school_id])
+      else
+      eventsList1 = Event.where(school_user_id: session[:user_id],event_date: params[:start]..params[:end], school_id: session[:school_id])  
+      end
+
       eventsList = Array.new
     
       eventsList1.each do |event|
@@ -36,14 +42,28 @@ class EventsController < ApplicationController
    
     begin
 
-      if session[:role_type] == "Admin"
+      if session[:role_type] == "Admin" || session[:role_type] == "Teacher"
 
+          @event = Event.find(params[:id])
+          @school_user = @event.school_user
+          method(:getEventDetails).call  
+            
 
-        elsif session[:role_type] == "Teacher"
+          else # Event detail for Parent
+          
+
+      end 
+
+    rescue Exception => e
+      
+    end
+  end  # EOF method show
+
+  def getEventDetails
+      
 
            @eventObj = OpenStruct.new
-           @event = Event.find(params[:id])
-      
+           
            @eventObj.id = @event.id
            @eventObj.event_title = @event.event_title
            @eventObj.event_description = @event.event_description
@@ -75,15 +95,9 @@ class EventsController < ApplicationController
             @eventObj.declinedCount = records_array.rows[0][0] 
 
 
-          else # Event detail for Parent
-          
 
-      end 
+  end
 
-    rescue Exception => e
-      
-    end
-  end  # EOF method show
 
   def eventUserDetailList
 

@@ -576,7 +576,7 @@ footer{
 //POPUP CSS
 .ui-widget-header{
     background: #eee;
-    width: 297px;
+    //width: 297px;
     margin-left: -3px;
     margin-top: -3px;
     border: 0px;
@@ -594,4 +594,10 @@ footer{
 //Student list css
 .student-table{
     margin-top: 126px;
+}
+
+//Add student css
+input.check-box{
+    opacity: 1;
+    position: inherit;
 }

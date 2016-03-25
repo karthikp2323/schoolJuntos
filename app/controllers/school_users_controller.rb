@@ -6,11 +6,19 @@ class SchoolUsersController < ApplicationController
   # GET /school_users.json
   def index
     #if access_allowed?
-    @school_users = SchoolUser.where("school_id = ? AND role_id = ?", session[:school_id], 2).order("created_at DESC").page(params[:page]).per_page(4)
+    @school_users = SchoolUser.where("school_id = ? AND role_id = ?", session[:school_id], 2).order("created_at DESC").page(params[:page]).per_page(7)
+      
+      #empty object for creating new school user. 
+      #This objects binds with the form inputs.
+      @school_user = SchoolUser.new
 
+      #empty object for creating new school user. 
+      #This objects binds with the form inputs.
+      @classroom = Classroom.new
+    
     respond_to do |format|
       format.html
-      format.json {render json: @school_users}
+      format.json {render json: @school_users.select(:id)}
     end
   #end
     
@@ -41,47 +49,60 @@ class SchoolUsersController < ApplicationController
   def new
     @school_user = SchoolUser.new
 
-
-    respond_to do |format|
-      format.html
-      format.json {render json: @school_users}
-    end
+    #respond_to do |format|
+      #format.html
+      render json: @school_users
+    #end
 
   end
 
   # GET /school_users/1/edit
   def edit
-    
+    render json: @school_user
   end
 
   # POST /school_users
   # POST /school_users.json
   def create
-    randNum = Random.new 
-
-    @school_user = SchoolUser.new(school_user_params)
     
-    @school_user.login_id = school_user_params[:first_name] + school_user_params[:last_name] + randNum.rand(999).to_s
-    @school_user.password = school_user_params[:first_name][0..3] + school_user_params[:last_name] + randNum.rand(999).to_s
-        
-    #respond_to do |format|
-      if @school_user.save
+     if params[:school_user][:id] != ""
+          
+           @school_user = SchoolUser.find(params[:school_user][:id])
 
-        begin
-          UserMailer.registration_confirmation(@school_user).deliver
-        rescue Exception => e
-          error = e.message
-        end
-        
-        redirect_to :controller => 'school_users', :action => 'index'
-        #format.html { redirect_to :action => index, notice: 'School user was successfully created.' }
-        #format.json { render :show, status: :created, location: @school_user }
+           begin
+             @school_user.update(school_user_params)
+             render json: @school_user
+           rescue Exception => e
+             error = e.message
+             render json: error
+           end
+
       else
-      #  format.html { render :new }
-      #  format.json { render json: @school_user.errors, status: :unprocessable_entity }
-      #end
+        
+          randNum = Random.new 
+
+          @school_user = SchoolUser.new(school_user_params)
+          
+          @school_user.login_id = school_user_params[:first_name] + school_user_params[:last_name] + randNum.rand(999).to_s
+          @school_user.password = school_user_params[:first_name][0..3] + school_user_params[:last_name] + randNum.rand(999).to_s
+              
+          #respond_to do |format|
+            if @school_user.save
+
+              begin
+                UserMailer.registration_confirmation(@school_user).deliver
+              rescue Exception => e
+                error = e.message
+              end # EOF begin
+        
+             render json: @school_user
+             
+            else
+            
+          end # EOF if @school_user.save
     end
-  end
+
+  end # EOF def create
 
   # PATCH/PUT /school_users/1
   # PATCH/PUT /school_users/1.json

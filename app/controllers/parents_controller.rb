@@ -42,7 +42,7 @@ class ParentsController < ApplicationController
   # GET /parents/new
   def new
 
-    @url_back = request.fullpath
+    #@url_back = request.fullpath
     @parent = Parent.new
     @parent.students.build
 
@@ -63,50 +63,82 @@ class ParentsController < ApplicationController
   # POST /parents.json
   def create
       #@classregistration = ClassRegistration.new(class_registration_params) 
+      debugger
    begin 
     randNum = Random.new
     
     @parent = Parent.new(parent_params)
     
-    @parent.login_id = parent_params[:students_attributes]["0"][:first_name] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
-    @parent.password = parent_params[:students_attributes]["0"][:first_name][0..3] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
-    
-debugger 
-    respond_to do |format|
-      if @parent.save
-        
+    @parent.login_id = parent_params[:dad_fname] + parent_params[:dad_lname] + randNum.rand(999).to_s
+    @parent.password = parent_params[:dad_fname][0..3] + parent_params[:dad_lname] + randNum.rand(999).to_s
 
+ 
+   
+      if @parent.save
+
+        
+        #Registering student
         studentId = Student.select("id").where("parent_id = "+ @parent.id.to_s)
+
+        #Create and save userid and password for student if access is granted.
+        if parent_params[:students_attributes]["0"]["IsLogIn"] == "1"
+
+          studentLoginObj = Studentlogindetail.new
+          studentLoginObj.login_id = parent_params[:students_attributes]["0"][:first_name] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
+          studentLoginObj.password = parent_params[:students_attributes]["0"][:first_name][0..3] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
+          studentLoginObj.student_id = studentId[0].id
+          studentLoginObj.save
+          
+            
+            if studentLoginObj.save
+              
+              @studentObj = OpenStruct.new
+              @studentObj.login_id = studentLoginObj.login_id
+              @studentObj.password = studentLoginObj.password
+              @studentObj.first_name = parent_params[:students_attributes]["0"][:first_name]
+              @studentObj.last_name = parent_params[:students_attributes]["0"][:last_name]
+              @studentObj.email_id = parent_params[:students_attributes]["0"][:email_id]  
+
+            end #EOF if studentLoginObj.save
+
+        end  #EOF if params[:IsLogIn] = 1
+
 
         regObj = ClassRegistration.new
         regObj.student_id = studentId[0].id
         regObj.classroom_id = params[:classroomId]
-        regObj.save
+        regObj.save  
 
+          #if student is regestered send an email confirmation to parent
           if regObj.save
             
             @parentObj = OpenStruct.new
-            @parentObj.login_id = parent_params[:students_attributes]["0"][:first_name] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
-            @parentObj.password = parent_params[:students_attributes]["0"][:first_name][0..3] + parent_params[:students_attributes]["0"][:last_name] + randNum.rand(999).to_s
+            @parentObj.login_id = @parent.login_id
+            @parentObj.password = @parent.password
             @parentObj.first_name = parent_params[:dad_fname]
             @parentObj.last_name = parent_params[:dad_lname]
             @parentObj.email_id = parent_params[:email_id]
             
+            begin
+              if parent_params[:students_attributes]["0"]["IsLogIn"] == "1"
+                UserMailer.registration_confirmation(@studentObj).deliver
+              end
+              UserMailer.registration_confirmation(@parentObj).deliver
+            rescue Exception => e
+              @errors = e.message
+            end
             
-            UserMailer.registration_confirmation(@parentObj).deliver
            
-          end # // EOF regObj.save
+          end # // EOF if regObj.save
 
-        format.html { redirect_to controller: 'students', action: 'index', classroomId: params[:classroomId] , notice: 'Student was successfully created.' }
-        format.json { render :show, status: :created, location: @parent }
+        render json: @parent
       else 
-        format.html { render :new }
-        format.json { render json: @parent.errors, status: :unprocessable_entity }
+        render json: "Error"
       end # // EOF if @parent.save
-    end #  // EOF respond_to do |format|
+    
 
     rescue Exception => e
-              
+        
     end  # // EOF begin
 
   end  # // EOF def create
@@ -143,7 +175,7 @@ debugger
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def parent_params
-      params.require(:parent).permit(:mom_fname, :mom_lname, :dad_fname, :dad_lname, :email_id, :contact, :login_id, :password,students_attributes: [:id,:first_name, :last_name, :dob, :emergency_contact, :address_line1, :address_line2, :city, :zip, :state, :country])
+      params.require(:parent).permit(:mom_fname, :mom_lname, :dad_fname, :dad_lname, :email_id, :contact, :login_id, :password,students_attributes: [:id,:first_name, :last_name, :dob, :emergency_contact, :address_line1, :address_line2, :city, :zip, :state, :country, :email_id, :IsLogIn ])
         
     end
 

@@ -4,7 +4,7 @@
 	
 	<div class="widget-header  ">
 	     <span> <h> <%= activity.title %>  </h></span> </br>
-	    <p> <span class="glyphicon glyphicon-time"></span> <%= time_ago_in_words(activity.created_at) %> ago</p> 
+	    <p> <span class="glyphicon glyphicon-time"></span> <%= time_ago_in_words(activity.created_at) %> ago  &nbsp; &nbsp; <span class="glyphicon glyphicon-user"></span> By: <%= activity.school_user.first_name %> </p> 
 	
 	</div>
 

@@ -6,6 +6,9 @@ class SchoolUser < ActiveRecord::Base
   belongs_to :school
   belongs_to :activity
 
-  has_many :classroom
-  has_many :event
+  has_many :classroom, dependent: :destroy
+  has_many :event, dependent: :destroy	
+
+  
+
 end

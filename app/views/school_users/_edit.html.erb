@@ -1,0 +1,96 @@
+
+                    <div class="widget-body">
+                        <div>
+                           
+        <div id="post-submit-message">
+          <label id="lbl-success-message" style="color: #52B4E5;">
+            Edited Successfully!  
+          </label> 
+          <label id="lbl-error-message" style="color: red;">
+            
+          </label>
+        </div>
+
+        <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                     <span class="input-icon icon-right">
+                    <input type="text"  id="txt_fname">
+                    
+                     </span>
+                  </div>
+                </div>
+                                            
+                <div class="col-sm-6">
+                  <div class="form-group">
+                     <span class="input-icon icon-right">
+                   <input type="text" id="contact">
+                     </span>
+                  </div>
+                </div>
+        </div>
+ 
+    
+
+        <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                     <span class="input-icon icon-right">
+                   <input type="text" id="contact">
+                     <i class="glyphicon glyphicon-envelope"></i>
+                     </span>
+                  </div>
+                </div>
+                                            
+                
+        
+                <div class="col-sm-6">
+                  <div class="form-group">
+                     <span class="input-icon icon-right">
+                    <input type="text" id="contact">
+                     <i class="glyphicon glyphicon-earphone"></i>
+                     </span>
+                  </div>
+                </div>
+                                            
+                
+        </div>
+
+    
+  
+   
+  
+  
+    
+  
+<button type="submit" class="btn btn-blue" id="btn-add-teacher" onclick="add_teacher_to_class()">Submit</button>
+                        </div>
+                    </div>
+<script type="text/javascript">
+  
+function add_teacher_to_class() {
+
+$("#btn-add-teacher").prop("disabled",true);
+
+var form_data = $('form').serialize(); 
+
+
+      $.ajax({
+        method: "POST",
+        url: "/school_users",
+        data: form_data
+      }).done(function(data){
+        
+        $("#editabledatatable").prepend("<tr><td>"+ data.first_name +"</td> <td> "+ data.last_name +" </td> <td> "+ data.email_id +" </td> <td>"+ data.contact + "</td> <td> <a class='btn btn-info btn-xs' href='/school_users/"+ data.id+"/edit'> Edit </a> <a class='btn btn-info btn-xs' data-confirm='Are you sure, all of his/her data will also be removed?' data-method='delete' href='/school_users/"+data.id+"'> Delete </a> <a class='btn btn-info btn-xs glyphicon glyphicon-plus' href='/classrooms/new?user_id="+data.id+"'>  Class </a> <button type='button' class='btn btn-info btn-xs glyphicon glyphicon-eye-open' onclick='getClasses("+data.id+")'> Classes </button> </td></tr>");
+
+
+        //display message
+        $("#lbl-success-message").show();
+
+      });
+  
+  
+}
+
+</script>
+                

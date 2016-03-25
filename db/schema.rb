@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218194111) do
+ActiveRecord::Schema.define(version: 20160324144602) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -90,9 +90,12 @@ ActiveRecord::Schema.define(version: 20160218194111) do
     t.integer  "classroom_id",      limit: 4
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.date     "event_end_time"
+    t.integer  "school_id",         limit: 4
   end
 
   add_index "events", ["classroom_id"], name: "index_events_on_classroom_id", using: :btree
+  add_index "events", ["school_id"], name: "index_events_on_school_id", using: :btree
   add_index "events", ["school_user_id"], name: "index_events_on_school_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
@@ -184,6 +187,7 @@ ActiveRecord::Schema.define(version: 20160218194111) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.boolean  "IsLogIn"
+    t.string   "email_id",          limit: 255
   end
 
   add_index "students", ["parent_id"], name: "index_students_on_parent_id", using: :btree
@@ -221,6 +225,7 @@ ActiveRecord::Schema.define(version: 20160218194111) do
   add_foreign_key "event_statuses", "parents"
   add_foreign_key "events", "classrooms"
   add_foreign_key "events", "school_users"
+  add_foreign_key "events", "schools"
   add_foreign_key "messages", "parents"
   add_foreign_key "messages", "school_users"
   add_foreign_key "school_users", "roles"

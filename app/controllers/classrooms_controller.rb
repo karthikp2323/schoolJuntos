@@ -5,16 +5,43 @@ class ClassroomsController < ApplicationController
   # GET /classrooms.json
   def index
     # displays the class list when admin clicks on class list from side bar to view classes.
-    @classrooms = Classroom.where(school_id: session[:school_id]).joins(:school_user).page(params[:page]).per_page(6)
+    @classrooms = Classroom.where(school_id: session[:school_id]).joins(:school_user).page(params[:page])
+
+    #empty object for creating new class
+    #This objects binds with the form inputs.
+    @classroom = Classroom.new
+
+    #empty object for creating new class
+    #This objects binds with the form inputs.
+    @parent = Parent.new
+    @parent.students.build
+
     
   end
 
-  def indexForTeachers
+  def getClassesForTeacher
+
     @classrooms = Classroom.joins(:school_user).where("school_user_id = " + params[:user_id])
     
-
+    render json: @classrooms
   end
 
+  def getStudentsList
+
+    sql = "SELECT  s.id, s.first_name, s.last_name, p.id, p.dad_fname, p.dad_lname
+          FROM parents p
+          JOIN students s
+          ON s.parent_id = p.id
+          JOIN class_registrations c
+          ON c.student_id = s.id
+          WHERE c.classroom_id= " + params[:classroomId];
+
+    records_array = ActiveRecord::Base.connection.exec_query(sql)
+
+
+    render json: records_array.rows
+
+  end
   # GET /classrooms/1
   # GET /classrooms/1.json
   def show
@@ -35,22 +62,38 @@ class ClassroomsController < ApplicationController
   # POST /classrooms
   # POST /classrooms.json
   def create
-    @classroom = Classroom.new(classroom_params)
-    #@user_id = params[:school_user_id]
-    respond_to do |format|
-      if @classroom.save
-        format.html { redirect_to @classroom, notice: 'Classroom was successfully created!' }
-        format.json { render :show, status: :created, location: @classroom }
-      else
-        format.html { render :new }
-        format.json { render json: @classroom.errors, status: :unprocessable_entity }
+   
+   if params[:classroom][:id] != ""
+     @classroom = Classroom.find(params[:classroom][:id])
+
+        begin
+          @classroom.update(classroom_params)
+          render json: @classroom
+        rescue Exception => e
+          error = e.message
+          render json: error
+        end
+   else
+
+      begin
+        @classroom = Classroom.new(classroom_params)
+        render json: @classroom
+      rescue Exception => e
+        @error = e.message
+        render json: @error
       end
-    end
-  end
+      
+        #@user_id = params[:school_user_id]
+      
+   end #EOF if
+      
+    
+  end # EOF def create
 
   # PATCH/PUT /classrooms/1
   # PATCH/PUT /classrooms/1.json
   def update
+
     respond_to do |format|
       if @classroom.update(classroom_params)
         format.html { redirect_to @classroom, notice: 'Classroom was successfully updated.' }

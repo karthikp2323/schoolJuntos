@@ -57,7 +57,7 @@
 
   </div> <!-- EOF div main row-->
 
-        <div id="avtivities" class="row" style="margin-top: -80px; margin-left: 0px;">
+        <div id="avtivities" class="row" style="margin-top: 0px; margin-left: 0px;">
            <%= render 'activity' %>
         </div>
           
@@ -71,3 +71,25 @@
 <%#= render 'message', locals: {activities: @activitiesNew} %>
 </div>
 <%#= link_to 'Back', {controller: "home", action: "home"} %> -->
+<script type="text/javascript">
+
+    jQuery(function() {
+      
+      if ($('.pagination').length) {
+
+        $(window).scroll(function() {
+          var url;
+          url = $('.pagination .next_page').attr('href');
+
+            if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 40 && window.location.pathname == "/activities/new") 
+            {
+              $('.pagination').text("Fetching more activities...");
+              return $.getScript(url);
+            }
+        });
+        return $(window).scroll();
+      }
+
+    });
+
+</script>
