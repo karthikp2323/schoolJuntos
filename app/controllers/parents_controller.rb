@@ -63,7 +63,7 @@ class ParentsController < ApplicationController
   # POST /parents.json
   def create
       #@classregistration = ClassRegistration.new(class_registration_params) 
-      debugger
+      
    begin 
     randNum = Random.new
     
