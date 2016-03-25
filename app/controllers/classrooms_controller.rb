@@ -77,7 +77,11 @@ class ClassroomsController < ApplicationController
 
       begin
         @classroom = Classroom.new(classroom_params)
-        render json: @classroom
+        if @classroom.save
+            render json: @classroom
+          else
+            raise "An error occured"  
+        end
       rescue Exception => e
         @error = e.message
         render json: @error

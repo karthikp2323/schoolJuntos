@@ -80,7 +80,7 @@
   function add_class_to_database() {
 
 $("#btn_add_class").prop("disabled",true);
-
+$("#classroom_school_user_id").val(14);
 var form_data = $('form').serialize(); 
 
 
@@ -89,7 +89,7 @@ var form_data = $('form').serialize();
         url: "/classrooms",
         data: form_data
       }).done(function(data){
-        console.log(data);
+        //console.log(data);
        if ($("#txt_edit_or_save").val() == "edit") {
         var teacherName =  $('#lblteacherName').text().split(":")[1];
 

@@ -89,7 +89,7 @@
 
 
     function manageTeacher(teacherId){
-      console.log("In manageTeacher:" + teacherId);
+     // console.log("In manageTeacher:" + teacherId);
         $("#btn_add_teacher").prop("disabled",false);
         $("#new_school_user")[0].reset();
         $("#lbl_success_message").html("");
@@ -129,11 +129,12 @@
   function addClassToTeacher(teacherName, teacherId){
     //console.log(teacherName,teacherId);
     $("#lblteacherName").html('Teacher: ' + teacherName);
-    $("#classroom_school_user_id").val(teacherId);
+    $("#classroom_school_user_id").attr("value",teacherId);
     $("#lbl_success_add_class_message").html("");
     $("#btn_add_class").prop("disabled",false);
     $('input[id=txt_edit_or_save]').val("add");
     $("#new_classroom")[0].reset();
+    
 
         $("#dialog_add_class").dialog({
             maxHeight: 500,
