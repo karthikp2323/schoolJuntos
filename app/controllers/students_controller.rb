@@ -12,6 +12,12 @@ class StudentsController < ApplicationController
       @registrations.each do |registration|
         @students.push(registration.student)
     end
+
+    #empty object for creating new student and parent. 
+    #This objects binds with the form inputs.
+    @parent = Parent.new
+    @parent.students.build
+
   end
 
   def studentSchoolActivities
@@ -42,6 +48,13 @@ class StudentsController < ApplicationController
    
    @classname = params[:classname]
    @classroomId = params[:classroomId]
+
+   @parentData =  @student.parent
+       
+        render :json => {
+          :student => @student,
+          :parent =>  @parentData
+        }
 
   end
 
@@ -79,10 +92,9 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
-
-        stdObj = Student.new
-        stdObj.id = params[:studentId]
-        stdObj.destroy
+    
+        @student = Student.find(params[:studentId])
+        @student.destroy
 
     respond_to do |format|
       format.html { redirect_to controller: 'students', action: 'index', classroomId: params[:classroomId], notice: 'Student was successfully destroyed.' }

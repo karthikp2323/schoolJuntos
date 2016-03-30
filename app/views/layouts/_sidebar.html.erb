@@ -46,6 +46,22 @@
                         <i class="menu-icon glyphicon glyphicon-home"></i>
                         <span class="menu-text"> Home </span></a>
                     </li>
+                        
+                        <% if session[:class_list] %>
+                        <li class="dropdown">
+                            <a href="/school_users/schoolUserHomeView">
+                            <i class="menu-icon glyphicon glyphicon-th-large"></i>
+                            <span class="menu-text"> My Classes </span></a>
+                        </li>
+                            <% session[:class_list].each do |class_list| %>
+                            <li style="margin-left: 20px;" >
+                                <a href="/activities/new?class_id=<%= class_list["id"] %>&classname=<%= class_list["class_name"] %>">
+                                <i class="menu-icon glyphicon glyphicon-blackboard"></i>
+                                <span class="menu-text"> <%= class_list["class_name"] %> </span></a>
+                            </li>
+                            <% end %>
+                        <% end %>
+
                      <li class="dropdown">
                         <a href="/events">
                         <i class="menu-icon glyphicon glyphicon-calendar"></i>

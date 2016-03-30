@@ -13,7 +13,7 @@
      <% end %>
       <!-- <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p> -->
-     <% if session[:school_id] %>    
+     <% if session[:school_id] || session[:parent_id] %>    
         <div class="main-container container-fluid">
           <div >
 	           <div id="sidebar" class="page-sidebar sidebar-after-login" >
@@ -30,22 +30,7 @@
 
           </div> <!-- div page-container -->
         </div><!-- div main-container -->
-      <% elsif session[:parent_id]%>
-
-      <div class="main-container container-fluid">
-          <div class="page-container">
-              <div id="sidebar" class="page-sidebar" >
-                <%= render 'layouts/sidebarParent' %> 
-              </div>
-              <div class="page-content">
-
-                <div >
-                <%= yield %>
-                </div><!-- div page-body -->
-
-              </div>
-          </div> <!-- div page-container -->
-      </div><!-- div main-container -->
+      
   <% else %>
        <div class="page-body">
         <%= yield %>

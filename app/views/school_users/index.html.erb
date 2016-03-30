@@ -96,10 +96,11 @@
         $("#lbl-error-message").hide();
 
       if (teacherId == 'new') {
-        
+        var title = "Add Teacher";
         $('input[id=txt_edit_or_save]').val("add");
       }
       else{
+        var title = "Edit Teacher";
         $('input[id=school_user_first_name').val($("#"+teacherId).find("td")[0].innerText);
         $('input[id=school_user_last_name]').val($("#"+teacherId).find("td")[1].innerText);
         $('input[id=school_user_email_id]').val($("#"+teacherId).find("td")[2].innerText);
@@ -114,7 +115,7 @@
       $("#dialog_teacher").dialog({
             maxHeight: 500,
             width: 570,
-            title: "Edit Teacher",
+            title: title,
             position: { my: "center", at: "center", of: ".div-teacher-list" },
             modal: true,
             buttons: {

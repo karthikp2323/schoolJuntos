@@ -33,7 +33,6 @@ class ActivitiesController < ApplicationController
       
       else 
       
-      @class_details = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
       @activity = Activity.new #For creating new activity
       @classroom_id = params[:class_id]
       @classname = params[:classname]

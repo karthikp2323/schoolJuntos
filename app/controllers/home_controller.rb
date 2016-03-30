@@ -33,7 +33,7 @@ class HomeController < ApplicationController
               session[:parent_id] = found_user.id 
               session[:role_type] = "Parent"
               session[:username] = found_user.dad_fname + " " + found_user.dad_lname
-              session[:initials] = found_user.dad_fname[0] + " " + found_user.dad_fname[0]
+              session[:initials] = found_user.dad_fname[0] + " " + found_user.dad_lname[0]
 
               redirect_to school_users_schoolUserHomeView_path
 
@@ -44,13 +44,14 @@ class HomeController < ApplicationController
        else
          flash[:notice] = "Invalid username/password combination."
          redirect_to home_login_path 
-      end
+      end #EOF if for parent credentials check
 
     elsif role_type == "Student"
 
          flash[:notice] = "Invalid username/password combination."
          redirect_to home_login_path  
-    else
+
+    else # credential check for admin and teacher
 
         #check whether user has provided username and password
         if params[:username].present? && params[:password].present?
@@ -74,6 +75,7 @@ class HomeController < ApplicationController
           session[:initials] = authorized_user.first_name[0] + " " + authorized_user.last_name[0]
               
           if session[:role_type] == "Teacher"
+             session[:class_list] = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
             redirect_to(:controller => 'school_users' ,:action => 'schoolUserHomeView')
               
            else

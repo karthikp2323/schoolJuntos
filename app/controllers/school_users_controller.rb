@@ -31,7 +31,7 @@ class SchoolUsersController < ApplicationController
       @parent_kids = Student.where("parent_id = ?", session[:parent_id])
 
     else
-      @class_details = Classroom.where("school_user_id = ? AND school_id =?", session[:user_id], session[:school_id])
+     
     end    
     
   end

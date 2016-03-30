@@ -10,45 +10,37 @@
 <div class="widget">
           <div class="widget-header bordered-bottom bordered-blue">
                 <span >Student's List</span>
-                <!-- <div class="widget-buttons">
-                    <a href="#" data-toggle="maximize">
-                        <i class="fa fa-expand"></i>
-                    </a>
-                    <a href="#" data-toggle="collapse">
-                        <i class="fa fa-minus"></i>
-                    </a>
-                    <a href="#" data-toggle="dispose">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div> -->
+                <div class="widget-buttons" style="float: right">
+                    
+                     <button type="button" class="btn btn-default" onclick="manageStudent(<%= @classroomId %>)" style="margin-top: -18px;"> Add Student </button>
+                </div>
             </div>
 <div class="widget-body">
-<table class="table table-striped table-hover table-bordered" id="editabledatatable">
+<table id="tableStudentList">
   <thead>
-    <tr role="row">
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Dob</th>
-      <th>Emergency contact</th>
+    <tr >
+      <th>First Name</th>
+      <th>Last Name</th>
+      
+      <th>Parent Name</th>
+      <th> Student LogIn </th>
            
-      <th colspan="2"></th>
+      <th> </th>
     </tr>
   </thead>
 
   <tbody>
     <% @students.each do |student| %>
-      <tr>
+      <tr id="<%= student.id %>">
         <td><%= student.first_name %></td>
         <td><%= student.last_name %></td>
-        <td><%= student.dob %></td>
-        <td><%= student.emergency_contact %></td>
+        
+        <td><%= student.parent.dad_fname %> <%= student.parent.dad_lname %></td>
           
-        <!-- <td><%= link_to 'Show', student, class: 'btn btn-info btn-xs edit' %></td> -->
+        <td><% if student.IsLogIn == false%> NO <% else %> YES <% end %></td> 
         <td>
 
-
-          <%= link_to 'Show / Edit', {:controller => "students", :action => "edit", :studentId => student.id, :classroomId => @classroomId, :classname => @classname, :urltoclass => url_for(:back)  , :id => student.id}, class: 'btn btn-info btn-xs edit' %>
-            
+            <button type="button" class="btn btn-info btn-xs" onclick="manageStudent(<%= @classroomId %>, <%= student.id %>, <%= student.parent.id %>)"> Show/Edit </button>
             <%= link_to 'Delete', {:controller => "students", :action => "destroy", :studentId => student.id, :classroomId => @classroomId}, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-info btn-xs edit' %>
         </td>
       </tr>
@@ -61,3 +53,85 @@
 <br>
 
 <!-- <%= link_to 'New Student', new_student_path %> -->
+<script type="text/javascript">
+  
+    $(document).ready(function(){
+ 
+      $("#dialogStudent").hide();
+      jQuery(function() {
+              return $("#tableStudentList").dataTable({
+                
+              });
+      });    
+    
+  });
+
+
+    function manageStudent(classId, studentId, parentId){
+        console.log(classId, studentId, parentId);
+        $('#parent_students_attributes_0_email_id').hide();  
+        $("#btn_add_student").prop("disabled",false);
+        $("#new_parent")[0].reset();
+        $("#lbl_add_student_message").html("");
+        $('input[id=classroomId').val(classId);
+        $('#hdnAddOrEditAction').val('add');
+
+        if (studentId != undefined && parentId != undefined) {
+          $('#hdnAddOrEditAction').val('edit');
+           setDailogForEditStudent(studentId, parentId);
+        };
+        
+
+        $("#dialogStudent").dialog({
+            maxHeight: 500,
+            width: 870,
+            title: "Add Student",
+            position: { my: "center", at: "center"},
+            modal: true,
+            buttons: {
+              Close: function() {
+                $( this ).dialog( "close" );
+              }
+            }
+          });
+
+    }
+
+    function setDailogForEditStudent(studentId, parentId){
+
+      $('input[id=parent_students_attributes_0_id]').val(studentId);
+      $('input[id=parent_id]').val(parentId);
+       $.ajax({
+              method: "GET",
+              url: "/students/"+studentId+"/edit",
+              data: {id: studentId}
+            }).done(function(data){
+              console.log(data)
+
+               if(data["student"].IsLogIn == true)
+               {
+                $('#parent_students_attributes_0_email_id').show();  
+                $('#parent_students_attributes_0_email_id').val(data["student"].email_id);
+                $('#parent_students_attributes_0_IsLogIn').prop('checked', true)
+               }
+               $('input[id=parent_students_attributes_0_first_name').val(data["student"].first_name);
+               $('input[id=parent_students_attributes_0_last_name').val(data["student"].last_name);
+
+               $('input[id=parent_dad_fname').val(data["parent"].dad_fname);
+               $('input[id=parent_dad_lname').val(data["parent"].dad_lname);
+               $('input[id=parent_mom_fname').val(data["parent"].mom_fname);
+               $('input[id=parent_mom_lname').val(data["parent"].mom_lname);
+               $('input[id=parent_email_id').val(data["parent"].email_id);
+
+            });
+        
+    }
+
+
+
+</script>
+
+  <div id="dialogStudent">
+    <%= render 'parents/form'%>
+  </div>
+

@@ -130,8 +130,13 @@ class ParentsController < ApplicationController
             
            
           end # // EOF if regObj.save
-
-        render json: @parent
+        @studentData =  @parent.students
+       
+        render :json => {
+          :parent => @parent,
+          :student =>  @studentData
+        }
+      
       else 
         render json: "Error"
       end # // EOF if @parent.save
@@ -146,16 +151,24 @@ class ParentsController < ApplicationController
   # PATCH/PUT /parents/1
   # PATCH/PUT /parents/1.json
   def update
-    respond_to do |format|
-      if @parent.update(parent_params)
-        format.html { redirect_to @parent, notice: 'Parent was successfully updated.' }
-        format.json { render :show, status: :ok, location: @parent }
-      else
-        format.html { render :edit }
-        format.json { render json: @parent.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+    
+    
+      begin
+        @parent.update(parent_params)
+        @studentData =  @parent.students
+
+        render :json => {
+                :parent => @parent,
+                :student =>  @studentData
+              }
+
+      rescue Exception => e
+        @error = e.message
+
+        render json: @error
+      end # EOF beging
+   
+  end # EOF def update
 
   # DELETE /parents/1
   # DELETE /parents/1.json
@@ -175,7 +188,7 @@ class ParentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def parent_params
-      params.require(:parent).permit(:mom_fname, :mom_lname, :dad_fname, :dad_lname, :email_id, :contact, :login_id, :password,students_attributes: [:id,:first_name, :last_name, :dob, :emergency_contact, :address_line1, :address_line2, :city, :zip, :state, :country, :email_id, :IsLogIn ])
+      params.require(:parent).permit(:id, :mom_fname, :mom_lname, :dad_fname, :dad_lname, :email_id, :contact, :login_id, :password,students_attributes: [:id,:first_name, :last_name, :dob, :emergency_contact, :address_line1, :address_line2, :city, :zip, :state, :country, :email_id, :IsLogIn ])
         
     end
 

@@ -65,13 +65,13 @@
               </div>
           </div>  <!-- /div row 1 -->
  
-      
+       <%= o.hidden_field :id %>  
       <%= hidden_field_tag(:classroomId, @classroomId) %>
   <% end %>
          <div class="form-title">
               Parent Information
           </div>
-
+     <%= f.hidden_field :id %>     
     <div class="row"> <!-- div row 2 -->
         <div class="col-sm-6">
           <div class="form-group">
@@ -139,7 +139,8 @@
    </div>  <!-- /div widget -->
   </div> <!-- /div main-->
 <% end %>
-        
+    
+    <input type="hidden" id="hdnAddOrEditAction">    
     <div class="row"> <!-- div row 3 -->
         <div class="col-sm-6">
           <div class="form-group">
@@ -176,16 +177,49 @@
 
       $("#btn_add_student").prop("disabled",true);
 
-      var form_data = $('form').serialize(); 
+      
+      var classroomId = $('input[id=classroomId').val();
 
+      if($('#hdnAddOrEditAction').val() == 'add'){
+         var form_data = $('form').serialize();
+         var url = "/parents/create";
+      }
+      else{
+         var form_data = $('form').serialize() + "&id=" + parentId; 
+         var url = "/parents/update";
+         var parentId = $('input[id=parent_id').val();
+         
+      }
 
       $.ajax({
         method: "POST",
-        url: "/parents/create",
-        data: form_data
+        url: url,
+        data: form_data 
       }).done(function(data){
           console.log(data);
-          $("#lbl_add_student_message").text("Student Added!")
+            
+            var studentId = data["student"][0].id;
+            var studentFirstName = data["student"][0].first_name;
+            var studentLastName = data["student"][0].last_name;
+            var parentName = data["parent"].dad_fname + " " +data["parent"].dad_lname;
+            var parentId = data["parent"].id 
+            if(data["student"][0].IsLogIn == false){
+              var IsLogIn = "NO"
+            }else{ var IsLogIn = "YES" }
+
+          if($('#hdnAddOrEditAction').val() == 'add'){
+         
+
+            $("#tableStudentList").prepend("<tr id="+studentId+"><td>"+ studentFirstName +"</td> <td> "+studentLastName +" </td> <td> "+ parentName  +" </td> <td> "+ IsLogIn  +" </td> <td> <button type='button' class='btn btn-info btn-xs' onclick='manageStudent("+classroomId+","+studentId+","+parentId+")'> Show/Edit </button> <a class='btn btn-info btn-xs' data-confirm='Are you sure, all of his/her data will also be removed?' data-method='delete' href='/students/destroy?classroomId="+classroomId+"&studentId="+studentId+"'> Delete </a> </td></tr>");
+              $("#lbl_add_student_message").text("Student Added!")
+          }
+          else{
+
+            $("#"+data["student"][0].id).html("<td>"+ studentFirstName +"</td> <td> "+studentLastName +" </td> <td> "+ parentName  +" </td> <td> "+ IsLogIn  +" </td> <td> <button type='button' class='btn btn-info btn-xs' onclick='manageStudent("+classroomId+","+studentId+","+parentId+")'> Show/Edit </button> <a class='btn btn-info btn-xs' data-confirm='Are you sure, all of his/her data will also be removed?' data-method='delete' href='/students/destroy?classroomId="+classroomId+"&studentId="+studentId+"'> Delete </a> </td>");
+
+            $("#lbl_add_student_message").text("Student Details Updated!")
+          }
+
       });
 
 

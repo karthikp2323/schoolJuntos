@@ -74,7 +74,6 @@ class ClassroomsController < ApplicationController
           render json: error
         end
    else
-
       begin
         @classroom = Classroom.new(classroom_params)
         if @classroom.save

@@ -138,8 +138,8 @@
                  $("#dialog_view_students").dialog({
                     maxHeight: 500,
                     width: 570,
-                    title: "Add Class",
-                    position: { my: "center", at: "center", of: ".div-class-list" },
+                    title: "Student List",
+                    position: { my: "center", at: "center" },
                     modal: true,
                     buttons: {
                                 Close: function() {
@@ -161,6 +161,7 @@
         $("#new_parent")[0].reset();
         $("#lbl_add_student_message").html("");
         $('input[id=classroomId').val(classId);
+        $('#hdnAddOrEditAction').val("add")
         $("#dialog_add_students").dialog({
                     maxHeight: 500,
                     width: 870,

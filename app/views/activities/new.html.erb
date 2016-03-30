@@ -19,35 +19,14 @@
           </div>
 
 
-
-          <div class="widget-body widget-classes-body">
-             <div class="row row-specs-header"><span class="caption-align-center">My Classes </span> </div>
-              <% @class_details.each do |classdetails| %>
-                   <div class="row">
-                      <div class="col-sm-6 col-user-specs">
-             
-                              <a href='/activities/new?class_id=<%=classdetails.id%>&classname=<%= classdetails.class_name%> '>     
-                              <span class="menu-text"> <%= classdetails.class_name%> </span></a>
-                      </div>
-                   </div>   
-              <% end %>
-          </div>
-
           <div class="widget-body widget-classes-body">
               <div class="row row-specs-header"> <span class="caption-align-center">Actions </span> </div>
-                   <div class="row">
-                      <div class="col-sm-6 col-user-specs">
-
-                             <a href='/parents/new?classroomId=<%= @classroom_id %>&classname=<%= @classname %>'>
-                             <span class="menu-text"> Add students </span></a>
-                                            
-                      </div>
-                   </div>
+                
                    <div class="row">
                       <div class="col-sm-6 col-user-specs">
 
                              <a href='/students?classroomId=<%= @classroom_id %>&classname=<%= @classname %>'>
-                             <span class="menu-text"> View students </span></a>
+                             <span class="menu-text"> Manage students </span></a>
                                             
                       </div>
                    </div>
