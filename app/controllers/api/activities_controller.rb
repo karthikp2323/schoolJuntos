@@ -45,6 +45,10 @@ def create
         @activity.image = params[:image]
       end
       
+      if params[:student_id] != " "
+        @activity.student_id = params[:student_id]
+      end
+
       @activity.title = params[:title]
       @activity.message = params[:message]
       @activity.classroom_id = params[:classroom_id]
