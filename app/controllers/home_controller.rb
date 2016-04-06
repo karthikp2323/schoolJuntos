@@ -34,6 +34,7 @@ class HomeController < ApplicationController
               session[:role_type] = "Parent"
               session[:username] = found_user.dad_fname + " " + found_user.dad_lname
               session[:initials] = found_user.dad_fname[0] + " " + found_user.dad_lname[0]
+              session[:kids_list] = Student.where("parent_id = ?", session[:parent_id])
 
               redirect_to school_users_schoolUserHomeView_path
 

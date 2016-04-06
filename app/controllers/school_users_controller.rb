@@ -27,12 +27,7 @@ class SchoolUsersController < ApplicationController
   #get classroomlist and childrenlist for parents
   def schoolUserHomeView
     
-    if session[:parent_id]
-      @parent_kids = Student.where("parent_id = ?", session[:parent_id])
-
-    else
-     
-    end    
+      
     
   end
   

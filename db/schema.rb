@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324144602) do
+ActiveRecord::Schema.define(version: 20160401161646) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -27,11 +27,13 @@ ActiveRecord::Schema.define(version: 20160324144602) do
     t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
     t.integer  "school_id",          limit: 4
+    t.integer  "student_id",         limit: 4
   end
 
   add_index "activities", ["classroom_id"], name: "index_activities_on_classroom_id", using: :btree
   add_index "activities", ["school_id"], name: "index_activities_on_school_id", using: :btree
   add_index "activities", ["school_user_id"], name: "index_activities_on_school_user_id", using: :btree
+  add_index "activities", ["student_id"], name: "index_activities_on_student_id", using: :btree
 
   create_table "class_registrations", force: :cascade do |t|
     t.integer  "classroom_id", limit: 4
@@ -214,6 +216,7 @@ ActiveRecord::Schema.define(version: 20160324144602) do
   add_foreign_key "activities", "classrooms"
   add_foreign_key "activities", "school_users"
   add_foreign_key "activities", "schools"
+  add_foreign_key "activities", "students"
   add_foreign_key "class_registrations", "classrooms"
   add_foreign_key "class_registrations", "students"
   add_foreign_key "classrooms", "school_users"

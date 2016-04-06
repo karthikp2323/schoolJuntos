@@ -25,7 +25,14 @@ class ActivitiesController < ApplicationController
       #@activities.school_user
       
       elsif session[:role_type] == "Parent"
-       
+        
+        session[:kids_list].each do |kid| 
+          if kid["id"] == params[:student_id].to_i
+            @studentname = kid["first_name"] + " " + kid["last_name"]
+          end
+        end
+
+     
       @activity = Activity.new  
       @activities = Activity.where(classroom_id: ClassRegistration.select("classroom_id").where(student_id: params[:student_id])).order("created_at DESC").page(params[:page]).per_page(10)
      

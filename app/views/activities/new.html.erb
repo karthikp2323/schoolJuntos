@@ -32,6 +32,32 @@
                    </div>
           </div>
         </div>
+      <% else %>
+          
+          <div class="col-lg-6 col-sm-6 col-xs-8" style="margin-left: -12px;">
+          <div class="widget activity-post">  <!-- / Widget Post activity box-->
+              <div class="widget-header bordered-bottom bordered-blue">
+                  <span > <h> <%= @studentname %> </h> </span>
+              </div>
+            <div class="widget-body"> <!-- Widget-Body Post activity box-->
+                                
+                  
+               
+               
+           
+           </div>  <!-- / Widget-Body Post activity box-->
+          </div>  <!-- / Widget Post activity box-->
+        </div>
+
+          
+          <div class="col-lg-6 col-sm-6 col-sm-6 list-box">
+            <!-- Widget to display list of classes for teacher-->
+            <div class="widget-header  widget-for-user">
+              <div class="profile__image">
+                <a href="#"><%= session[:initials] %></a>
+              </div>
+            </div>
+          </div>
       <% end %>
 
   </div> <!-- EOF div main row-->

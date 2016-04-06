@@ -6,13 +6,15 @@ class StudentsController < ApplicationController
   def index
 
     @registrations = ClassRegistration.includes(:student).where("classroom_id = " + params[:classroomId])
-    @classname = params[:classname]
-    @classroomId = params[:classroomId]
+    
     @students = []
       @registrations.each do |registration|
         @students.push(registration.student)
     end
 
+    @classname = params[:classname]
+    @classroomId = params[:classroomId]
+    
     #empty object for creating new student and parent. 
     #This objects binds with the form inputs.
     @parent = Parent.new

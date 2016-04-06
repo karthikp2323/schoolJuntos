@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   post 'api/parents/check_login', to: 'api/parents#check_login'
   get 'api/parents/getChildList', to: 'api/parents#getChildList'
 
+
+  get 'api/students/getStudentsForClass', to: 'api/students#getStudentsForClass'
+  
   namespace :api do
     resources :events
   end
