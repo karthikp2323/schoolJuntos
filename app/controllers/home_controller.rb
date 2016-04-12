@@ -21,6 +21,30 @@ class HomeController < ApplicationController
   end
 
   def check_login
+debugger
+begin
+
+  APNS.host = 'gateway.sandbox.push.apple.com' 
+    # gateway.sandbox.push.apple.com is default
+
+    APNS.pem  = 'app/pushnotifications/certificate.pem'
+    # this is the file you just created
+    
+    APNS.port = 2195 
+    
+    APNS.pass = 'DSIG1234'
+
+    device_token = '4923af335794ebc3a107eca7b653cfc578cd95f7dfb03ef913faa492d183ff59'
+
+    APNS.send_notification(device_token, 'Hey Rithu Wassup!' )
+
+    APNS.send_notification(device_token, :alert => 'Hello iPhone!', :badge => 1, :sound => 'default')
+
+
+rescue Exception => e
+  message = e.message
+end
+    
     
     role_type = params[:login][:role_type]
 

@@ -73,6 +73,11 @@ gem 'momentjs-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+#For sending push notification to devices
+#gem 'grocer'
+
+gem 'apns'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
