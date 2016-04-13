@@ -9,8 +9,18 @@ class EventsController < ApplicationController
 
       if session[:role_type]  == "Admin"
       eventsList1 = Event.where(event_date: params[:start]..params[:end], school_id: session[:school_id])
-      else
+      elsif session[:role_type]  == "Teacher"
       eventsList1 = Event.where(school_user_id: session[:user_id],event_date: params[:start]..params[:end], school_id: session[:school_id])  
+      elsif session[:role_type]  == "Parent"
+        
+        studentIds = []
+        
+        session[:kids_list].each do |kid| 
+            studentIds.push(kid["id"])
+          end
+        
+      eventsList1 = Event.where("classroom_id IN ("+studentIds * "," +")")  
+
       end
 
       eventsList = Array.new

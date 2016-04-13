@@ -32,6 +32,13 @@ class ActivitiesController < ApplicationController
           end
         end
 
+      @studentClassDetails = ClassRegistration.joins(classroom: :school_user).where("student_id = " + params[:student_id])
+    
+      @classesEnrolled = []
+     
+      @studentClassDetails.each do |studentClassDetail|
+        @classesEnrolled.push(studentClassDetail.classroom)
+      end
      
       @activity = Activity.new  
       @activities = Activity.where(classroom_id: ClassRegistration.select("classroom_id").where(student_id: params[:student_id])).order("created_at DESC").page(params[:page]).per_page(10)

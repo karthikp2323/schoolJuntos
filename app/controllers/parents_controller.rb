@@ -1,5 +1,5 @@
 class ParentsController < ApplicationController
-  before_action :set_parent, only: [:show, :edit, :update, :destroy]
+  before_action :set_parent, only: [:show, :edit, :destroy]
 
   
   def parentlogin
@@ -152,7 +152,7 @@ class ParentsController < ApplicationController
   # PATCH/PUT /parents/1.json
   def update
     
-    
+     @parent = Parent.find(params["parent"]["id"])
       begin
         @parent.update(parent_params)
         @studentData =  @parent.students
